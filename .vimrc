@@ -539,11 +539,12 @@ endfunction
 " q - quit the file
 " ! - force to quit
 ":e! - reload the original version of the current file
-":help - get help 
+":help - get help
 " cttrl-] - follow a link (under the cursor) in the vim help 
-" ctrl-t,ctrl-o - jump back from/to last link 
-" :help x - help to deleting chars 
-" :help deleting - how to delete text 
+" ctrl-t,ctrl-o - jump back from/to last link
+" <ctrl+altgr+]> - follow links in help
+" :help x - help to deleting chars
+" :help deleting - how to delete text
 " :help index - index of all vim commands
 " :help ctrl-a - help for ctrl-a
 " note: help always displayed for normal mode
@@ -735,6 +736,8 @@ endfunction
 " "*yy - yank into system clipboard (used with other programs)
 " "*p - put from system clipboard
 " :help clipboard
+" "+y$ - yank til end of line to real clipboard
+" "+p - insert the real clipboard
 " daw - delete a word; with following whitespace
 " operator-text objects: (no matter where the cursor is)
 " cis - c change is inner sentence 
@@ -868,8 +871,6 @@ endfunction
 " :tab help gt - shows help in a new tab
 " gt/T - go to next/previous tab
 " :help tab-page
-" "+y$ - yank til end of line to real clipboard
-" "+p - insert the real clipboard
 "
 " Macros
 " ******
@@ -887,9 +888,9 @@ endfunction
 " appended yanking
 " ****************
 " "aY - start yanking one line into register a
-" "AY - yank another (independent) line into register a 
-"
+" "AY - yank another (independent) line into register a
 " => register a now contains all lines in yanked order!
+"
 " :%substitute/Professor/Teacher/ - changes first Professor to Teacher in each
 " line 
 " % - is a range and specifies all lines
@@ -980,6 +981,9 @@ endfunction
 " for location use options 'dir' and 'shell'
 " :help recovery
 " :help swapfile
+"
+" Substitute
+" **********
 " :%s/\<four\>/4/gc - \< and \> match beginning and end of word
 " replace a word in more than one file:
 " 	vim *.cpp		Start Vim, defining the argument list to
@@ -1008,9 +1012,11 @@ endfunction
 "	The second part between \( \) matches "First"		   \(  \)
 "	    any character					     .
 "	    any number of times					      *
-"
 " \1 and \2 backreference the matched things by \(...\), there are up to 9
 " backreferences see :h sub-replace-special
+"
+" Sorting
+" *******
 " sort a list of files
 " 	/^OBJS
 "	j
@@ -1028,6 +1034,8 @@ endfunction
 " :g/^/m 0 - reverse a file: global find start of line(^) and m(ove) it to
 " line 0
 " :'t+1,.g/^/m 't - mark the first line with mt and reverse this subpart
+"
+"
 " g<ctrl-g> - count words
 " :h count-items
 " K - on one word: find man page for that word (ie. ls)
@@ -1045,9 +1053,10 @@ endfunction
 " :grep error_string *.c - use :cnext and :cprev two swwitch between matched
 " files, use :clist for overview
 " note: :grep uses the external tool grep - see option 'grepprg'
+"
 " <<Editing Effeciently>>
-" move around in comman line
 " **************************
+" move around in comman line
 " 	<Left>			one character left
 "	<Right>			one character right
 "	<C-Left>		one word left
@@ -1256,14 +1265,15 @@ endfunction
 " produceer | vim -S change.vim - - read input form producer
 " vim -s script file.txt ... - - use file.txt commands in normal mode on
 " another file
-" /\cword - switch the case sensitive search with \c and \C; overrides
-" preferences
 " 'magic' is on by default
 " <ctrl-c> - interrupt a search
 " :set ruler - show cursor position on the lower right (does not work here
 " since statusline was overidden before)
 " :set nowrapscan - now you get an error when search hits the top or bottom of
 " file
+"
+" Searching
+" *********
 " /defult/2 - search for default and move 2 lines below the pattern
 " 	    - the "offset" number (here 2) can also be negative
 " /const/e - put cursor at the end of match (hence at t)
@@ -1274,6 +1284,8 @@ endfunction
 " / - repeat search with same offset (also use n/N)
 " // - repeat search but removing the offset
 " ?const=e-2 - search backwards and 2 lines up
+" /\cword - switch the case sensitive search with \c and \C; overrides preferences
+"
 "
 " search patterns
 " ***************
@@ -1363,7 +1375,8 @@ endfunction
 " zR - set foldlevel to the deepest
 " see 'fold-indent','fold-marker','fold-syntax','fold-expr','fold-diff'
 "
-" <ctrl+altgr+]> - follow links in help
+" Tags
+" ****
 " ctags *.c - on command line tag all c files in current directory
 " :tag startlist
 " :tags - show list of tags
