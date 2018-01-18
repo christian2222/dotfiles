@@ -519,7 +519,11 @@ endfunction
 
 " DOCUMENTATION
 " *************
+"
+" Moving around
+" *************
 " A - insert mode at the end of the line
+" I - insert mode after moving cursor to first non-blank character
 " J - join the current line and the line below
 " u - undo the last change
 " ctrl-r redo last change
@@ -530,20 +534,56 @@ endfunction
 " o - opens a new line below cursor and puts vim in insert mode
 " O - opens a new line above cursor and puts vim in insert mode!!!
 " 3a! - adds 3 ! after the cursor
+" w - start of next word
+" b - start of previous word
+" 3w - move 3 words forward
+" 2b - move 2 words backward
+" e - move to next end of a word
+" ge - move to previous end of word
 " 9k - move 9 lines up
 " 3A<pattern> - add 3 times the pattern at the end of line
 " 3x - delete 3 characters
 " ZZ - write the file and exit (no backup file is created - can be changed
+" B,W,E - like b,w,e but with special chars in word
+" $ - move cursor to end of line, so A=$a
+" ^ - move to first non-blank character of line
+" 0 - move to the very first character of a line
+" excercise: find out the difference between ^ and 0
+      " in this example 
+" 3$ does not make sence but works
+" 0 takes no count because 0 is 0
+" 3^ has no effect on ^
+" fx - searches foward to next character x (try it in this line with 2s)
+" Fx - searches the line backwards for x (try it here with 3Fe)
+" tx - like fx, but stops before the character; t stands for "to"
+" Tx - same thing backwards
+" these 4 commands can be repeated with ;
+" , repeats in the other direction
+" but the cursor is never moved to another line
+" f<esc>,F<esc> -abort the search
+" % - move to the matching braces ((){}[]) or find one
+" 33G - puts you to absolute line number 33
+" G - end of file
+" gg - start of file
+" 40% - moves you to 40% of the file
+" 3j3k4l5h - work the same with relative movement
+" H,M,L - moves you to the home,middle and last line you see
+"
+" File commands
+" *************
 " :q! - quit without saving
 " : -command line mode
 " q - quit the file
 " ! - force to quit
 ":e! - reload the original version of the current file
-":help - get help
-" cttrl-] - follow a link (under the cursor) in the vim help 
-" ctrl-t,ctrl-o - jump back from/to last link
-" <ctrl+altgr+]> - follow links in help
-" :help x - help to deleting chars
+"
+" Mappings
+" ********
+" vnoremap _g y:exe "grep /" . escape(@", '\\/') . "/ *.c *.h"<CR> - yanks the visually selected text and searches for it in C files
+" map Q gq - a mapping
+"
+" Hwlp files
+" **********
 " :help deleting - how to delete text
 " :help index - index of all vim commands
 " :help ctrl-a - help for ctrl-a
@@ -581,19 +621,26 @@ endfunction
 " :help map-bar - how | is handled in mappings
 " :h command-topic - command definitions
 " :h command-bar - ! argument for custom commands
-" windows commands all start with ctrl-w
-" :h ctrl-w_p - help at moving to previous window
-" :h windows.txt - general window help
-" :helpgrep topic - grep all helpfiles for a specific topic and takes you to
-" the first match
-" :cnext - takes you to the next match
-" :copen - opens the quickfix-window where all matches are availible
 " :help usr-toc.txt - user manual
 " :help usr_24.txt - chapter 24 of user manual
 " :help 10.1 - go to chapter 10.1 in usr_10.txt
-" :h hl-WaningMsg - WarningMsg highlightgroup
-" :h :syn-conceal - help about the conceal argument for syn command
-" quickfix commands start with :c and list commands with :l
+" :helpgrep topic - grep all helpfiles for a specific topic and takes you to
+" :help - get help
+" cttrl-] - follow a link (under the cursor) in the vim help 
+" ctrl-t,ctrl-o - jump back from/to last link
+" <ctrl+altgr+]> - follow links in help
+" :help x - help to deleting chars
+" :help recovery
+" :help swapfile
+" :h add-filetype-plugin
+" :h load-plugins
+" :h write-plugin
+" :h vimrc-filetype
+" :h option-list
+" :h oldfiles
+" :h sessionoptions
+" :h modeline
+" :h mewtr-browse - for more information on file browser
 " :h -f - help on command line switch f
 " :h +conceal - help on optional feature conceal
 " :h :help BufWinLeave - autocomands by their name
@@ -603,42 +650,36 @@ endfunction
 " :h ft-tex-plugin - tex plugin informations
 " :h W10 - help on warning 10: Changing a readonly file
 " :h E128 - takes you to function, because there the error occurs
+"
+" Deleting
+" ********
+" d3w - delete the 3 following words
+" d2e - exclusive delete two words
+" d$ - delete til end of line
+" note: first type an operator d then a motion $
+" d4l - delete 4 chars; also an "operator-motion"
+" some shortcuts
+" 	x  stands for  dl  (delete character under the cursor)
+"	X  stands for  dh  (delete character left of the cursor)
+"	D  stands for  d$  (delete to end of the line)
+"	C  stands for  c$  (change to end of the line)
+"	s  stands for  cl  (change one character)
+"	S  stands for  cc  (change a whole line)
+" d3w = 3dw expect that 3dw deletes a word 3 times
+" 2d3w - deletes 6 words
+"
+" Windows commands
+" ****************
+" windows commands all start with ctrl-w
+" :h ctrl-w_p - help at moving to previous window
+" :h windows.txt - general window help
+" :copen - opens the quickfix-window where all matches are availible
+" :h hl-WaningMsg - WarningMsg highlightgroup
+" :h :syn-conceal - help about the conceal argument for syn command
+" quickfix commands start with :c and list commands with :l
 " move on with :h usr_03.txt
-" w - start of next word
-" b - start of previous word
-" 3w - move 3 words forward
-" 2b - move 2 words backward
-" e - move to next end of a word
-" ge - move to previous end of word
 " what vim detects as a word is set in the option 'iskeyword'
-" B,W,E - like b,w,e but with special chars in word
-" $ - move cursor to end of line, so A=$a
-" ^ - move to first non-blank character of line
-" 0 - move to the very first character of a line
-" excercise: find out the difference between ^ and 0
-      " in this example 
-" 3$ does not make sence but works
-" 0 takes no count because 0 is 0
-" 3^ has no effect on ^
-" fx - searches foward to next character x (try it in this line with 2s)
-" Fx - searches the line backwards for x (try it here with 3Fe)
-" tx - like fx, but stops before the character; t stands for "to"
-" Tx - same thing backwards
-" these 4 commands can be repeated with ;
-" , repeats in the other direction
-" but the cursor is never moved to another line
-" f<esc>,F<esc> -abort the search
-" % - move to the matching braces ((){}[]) or find one
-" 33G - puts you to absolute line number 33
-" G - end of file
-" gg - start of file
-" 40% - moves you to 40% of the file
-" 3j3k4l5h - work the same with relative movement
-" H,M,L - moves you to the home,middle and last line you see
 " ctrl-g - information where you are in file
-" :set (relative)number - shows (relative) numbers on the left
-" :set no(relaitive)number - turns this off again
-" :set ruler - displays the cursor position in the lower right corner
 " ctrl-u - move 'bild' up half screen
 " ctrl-d - move 'bild' down half screen
 " :!<cmd> - execute cmd on command line
@@ -646,23 +687,6 @@ endfunction
 " ctrl-f/b - scroll full screen up or down
 " zz - center line with cursor in window
 " zb/t - cursor at line top or bottom
-" /<pattern> - search for a specific pattern forward
-" ?<pattern> - search backward
-" note: use <up> and <down> arrows for previous searching
-"       use 3n for next and 2N for previous and last match
-" :set (no)ignorecase - option for searching
-" note: : commands also have a history
-" * - search the word under the current cursor
-" # - search the other direction
-" remind: 3*2# etc...
-" /the\> - limits the search to the not also for there - try it here
-" /\< - search beginning of word
-" /\> - search end of word
-" /\<the\> - does not match soothe or there
-" g#,g* - match partial words
-" :set hlsearch - option
-" :set incsearch - search while you are typing
-" :set nowrapscan - turns of stooping the search at begining or end of file
 " the solder holding one of the chips melted and the
 " /the$ finds the ar the end of line
 " /^the finds the at the begining of line
@@ -670,6 +694,9 @@ endfunction
 " to match a real . escape it in search: /\.
 " `` - come back to the mark where you came from
 " note: ` is a jump itself
+"
+" Marks
+" *****
 " mx - set mark x at current position x out of a..z
 " `x - move to mark x
 " 'x - moves to the begining of the line with mark x
@@ -680,33 +707,34 @@ endfunction
 " "	The cursor position when last editing the file
 " [	Start of the last change
 " ]	End of the last change
+"
+" Jumps
+" *****
 " ctrl-o - come back from where you started
 " ctrl-i - jump forward (again)
 " note: ctrl-i=<tab>
 " :jumps - lists positions you jumped to
-" d3w - delete the 3 following words
-" d2e - exclusive delete two words
-" d$ - delete til end of line
-" note: first type an operator d then a motion $
-" d4l - delete 4 chars; also an "operator-motion"
+"
+" Changing
+" ********
 " c2wbe - change 2 words under cursor and insert be (note: space after is not deleted)
 " cc - changes the whole line (here remaped to " )
-" some shortcuts
-" 	x  stands for  dl  (delete character under the cursor)
-"	X  stands for  dh  (delete character left of the cursor)
-"	D  stands for  d$  (delete to end of the line)
-"	C  stands for  c$  (change to end of the line)
-"	s  stands for  cl  (change one character)
-"	S  stands for  cc  (change a whole line)
-" d3w = 3dw expect that 3dw deletes a word 3 times
-" 2d3w - deletes 6 words
+
+" Replacing
+" *********
 " rx - replace character under cursor with x
 " 5rx - replaces the 5 following characters with xxxxx
 " 4r<enter> - replaces 4 characters with one line break
+"
+" Dot command
+" ***********
 " . - repeat the last change command 
 " To <B>generate</B> a table of <B>contents
 " f>df>f<.f<. on the line above
 " /four<enter>cwfive<esc>n.n. - repeat replacing four with five
+"
+" Visual mode
+" ***********
 " velllld - enter visual mode, select til end of word and the first 3 chars of
 " the following word and delete the selected text
 " Vjj - select 3 lines; V is line selection mode
@@ -717,11 +745,13 @@ endfunction
 "		steve		392	63	334
 " fQ<ctrl-v>3jwhd - do this on the start of the table
 " in visual mode hit o/O for other end of selection
+"
 " deleted text by d or x can be pasted back by p/P ("put") below/before
 " 3p - paste 3 times
 " type xp on the e of teh
 " welp - 
 " D - delete from cursor to end of line
+"
 " Copy(=yank) and paste
 " ---------------------
 " Y=yy - yanks the whole line
@@ -748,6 +778,7 @@ endfunction
 " :help text-objects
 " R - replace mode (overrides characters)
 " :h operator
+"
 " delete pieces of text
 " ---------------------
 " x	delete character under the cursor (short for "dl")
@@ -761,22 +792,15 @@ endfunction
 " dgg	delete until the start of the file
 " use c instead of d for change commands; remind: you can also yank with y
 "
+" Lower and upper case
+" ********************
 " ~ - change to upper/lower keys 
 " :set tildeop - makes ~ to operator key
-" I - insert mode after moving cursor to first non-blank character
+"
 " :edit $MYVIMRC - in home directory
-" :set incsearch
-" :set nocompatible
 " $VIMRUNTIME/vimrc_example.vim - example vimrc file
 " set backspace=indent,eol,start - allows <bs> to delete whitespace at start
 " of a line, a line break and character before insert mode
-" :set autoindent - keeps indent from previous line
-" :set history=50 - keep 50 search patterns/commands in mind
-" :set ruler - display cursor position in lower right corner (does not work
-" since statusline was overriden)
-" :set showcmd - display incomplete commands on status line; try with it 2f(w)
-" map Q gq - a mapping
-" vnoremap _g y:exe "grep /" . escape(@", '\\/') . "/ *.c *.h"<CR> - yanks the visually selected text and searches for it in C files
 " 	if &t_Co > 2 || has("gui_running")
 "	  syntax on
 "	  set hlsearch
@@ -805,10 +829,9 @@ endfunction
 " plugin - vimscript file loaded automatically
 "     global plugin: Used for all kinds of files
 "   filetype plugin: Only used for a specific type of file
-" :h add-filetype-plugin
-" :h load-plugins
-" :h write-plugin
-" :h vimrc-filetype
+"
+" Settings and options
+" ********************
 " :options - list of options
 " :set (no)<option> - (un)sets the specific option
 " :set so=0
@@ -822,9 +845,25 @@ endfunction
 " :set listchars=tab:>-,trail:- - displays tabs as >---
 " :set iskeyword+=- - now - is part of a word and no special char any more
 " :set cmdheight=3 - sets the height of the command line
+" :set ruler - show cursor position on the lower right
+" :set a(uto)i(ndent)
+" :h option-list
 " :syntax enable - color your files by syntax
 " :colorscheme evening
+" :set fielformats=unix,dos
+" :set fileformat? - prints actual file format
+" :set (relative)number - shows (relative) numbers on the left
+" :set no(relaitive)number - turns this off again
+" :set ruler - displays the cursor position in the lower right corner
+" :set autoindent - keeps indent from previous line
+" :set incsearch - search while typing
+" :set nocompatible
+" :set history=50 - keep 50 search patterns/commands in mind
+" :set ruler - display cursor position in lower right corner
+" :set showcmd - display incomplete commands on status line; try with it 2f(w)
+"
 " Using registers
+" ***************
 " "fyas - yank a sentence in the f register (a-z are registers) registers
 " appear before! the yank command
 " "l3Y - yank 3 lines in the l register
@@ -832,16 +871,9 @@ endfunction
 " notice: "b is before! the yanking y
 " "fp - paste content of register f where the cursor is
 " "wdaw - delete a word and write it in register w (register before! delete)
-" :write => logfile - append text of teh current window to logfile (you can
-" also use visual mode for this)
-" :view file - opens file in read-only mode
-" see options 'modifiable' and 'write'
-" :sabeas move.c - saves the current file under the new name move.c
-" splitting windows
-" :new - opems a new empty file
-" :(v)split file.txt - splits the window (vertically) and opens the file
-" file.txt
-" :3split alpha.c - opens alpha.c in a new window with heigt 3
+"
+" Windows
+" *******
 " <ctrl-w>+/- - in/decrease the current window size 
 " (height)<ctrl-w>_ . guess what it does (set height to current window)
 " The 'winheight' option can be set to a minimal desired height of a window and
@@ -854,11 +886,10 @@ endfunction
 " <ctrl-w>t/h - move to window Top/Bottom
 " :h Q_wi - more command to move to other windows
 " <ctrl-w>H/J/K/L - rearrange windows placing the current window left/down/up/top
-" :qall - quit all windows
-" :wall - write all windows 
-" :wqall
-" :qall!
 " differences between files
+"
+" Diffing
+" *******
 " vimdiff file.one file.two
 " editing file.onw and command :certical diffsplit file.two - splits window
 " vertically and diffs them
@@ -891,8 +922,10 @@ endfunction
 " "AY - yank another (independent) line into register a
 " => register a now contains all lines in yanked order!
 "
+" Substitution
+" ************
 " :%substitute/Professor/Teacher/ - changes first Professor to Teacher in each
-" line 
+" line
 " % - is a range and specifies all lines
 " :%substitute/Professor/Teacher/g - changes Professor to Teacher
 " everywhere
@@ -907,7 +940,9 @@ endfunction
 " %=1,$ short form
 " :?^Chapter?,/^Chapter/s=grey=gray=g - replace all grey with gray, but only
 " in this chapter (suppose you have Chapter headings) = is / in this command
-" /Chapter/+2 - adress 2 line after match (also works with negative numbers)
+"
+" to sort
+" *******
 " :'t,'b - using text between the marks t(op) and b(ottom)
 " :'<,'> - after visual mode these are actual marks selecting start and end of
 " visual selection
@@ -940,15 +975,6 @@ endfunction
 "	short
 "	Any other very huhu
 "
-" :read file.one - inserts file.one at current position
-" :%r file.one - append file.one at end of file
-" :0r file.one - insert file at beginning of current file
-" :.,$write tempo - write current position til end of file to file tempo
-" :.,$write! tempo - ! must follow immediately after write otherwise it would
-" be a filter command
-" :w >>new.txt - buffer is appended tii new.txt
-" :set textwidth=72
-" :set textwidth - returns current value
 " gqap - format current paragraph; paragraphs are separated by empty lines
 " note: a line with whitespaces is no paragraph separator!
 " gggqG - format whole file
@@ -975,12 +1001,7 @@ endfunction
 " :diffsp file.one
 " if you wrote the changes you can delete the .swp file
 " for better recovering use options 'updatetime' and 'updatecount'
-" vim -r ** - recover unsaved file (must be in the right directory)
-" vim -r - list all swapfiles
-" vim -r one.swp - use specific swap file
 " for location use options 'dir' and 'shell'
-" :help recovery
-" :help swapfile
 "
 " Substitute
 " **********
@@ -1004,7 +1025,6 @@ endfunction
 " error
 " :%s/\([^,]*\), \(.*\)/\2 \1/ - change "Last, First" to "First, Last"
 " 							\([^,]*\), \(.*\) ~
-"
 "	The first part between \( \) matches "Last"	\(     \)
 "	    match anything but a comma			  [^,]
 "	    any number of times				      *
@@ -1056,7 +1076,10 @@ endfunction
 "
 " <<Editing Effeciently>>
 " **************************
-" move around in comman line
+"
+" Command line
+" ************
+" move around in command line
 " 	<Left>			one character left
 "	<Right>			one character right
 "	<C-Left>		one word left
@@ -1072,8 +1095,6 @@ endfunction
 " :w(rite)
 " :r(ead)
 " note: in vimscipt use the full name
-" :set a(uto)i(ndent)
-" :h option-list
 " :e b<tab> - autocompletion for files starting with b
 " 	      vim beeps if there is more than one match
 " 	      ctrl-p goes back
@@ -1089,25 +1110,65 @@ endfunction
 "      you can also search in this window
 " <ctrl-z> - minimize/suspend gvim
 " :!ls - execute ls on shell
+" :write => logfile - append text of the current window to logfile (you can
+" also use visual mode for this)
+" :view file - opens file in read-only mode
+" see options 'modifiable' and 'write'
+" :saveas move.c - saves the current file under the new name move.c
+" :new - opems a new empty file
+" :(v)split file.txt - splits the window (vertically) and opens the file
+" file.txt
+" :3split alpha.c - opens alpha.c in a new window with heigt 3
 " :h viminfo
 " start vim and press '0 - you right back where you were last time; see :h
 " marks
-" :h oldfiles
-" :h sessionoptions
 " :mksession vimbook.vim - stores a session to a file
 " :source vimbook.vim - restores the session from file
+" :qall - quit all windows
+" :wall - write all windows 
+" :wqall
+" :qall!
+" :args *.c find all c files and edit the first one, then
+" :argdo %s/\<x_cnt\>/x_counter/ge | update - argdo takes another command and
+" 					      execute it on all files in the argument list
+" 					      substitue x_cnt with x_counter
+" 					      g - replace all ocurrences and
+" 					      e - avoid interruption by errors
+" 					      | - separate two commands
+" 					      update - write file only if it
+" 					      was changed
+" :window/:bufdo - do some command on all windows/buffers
+" :ls/:buffers - to see all windows/buffers
+" :edit . - starts the vim filebrowser (hit <f1> for help ctrl-j to jump in ctrl-o to jump back)
+" :Explore <dir> - start filebrowser in current dir
+" :read file.one - inserts file.one at current position
+" :%r file.one - append file.one at end of file
+" :0r file.one - insert file at beginning of current file
+" :.,$write tempo - write current position til end of file to file tempo
+" :.,$write! tempo - ! must follow immediately after write otherwise it would
+" be a filter command
+" :w >>new.txt - buffer is appended tii new.txt
+" :set textwidth=72
+" :set textwidth - returns current value
+"
+" Calling vim
+" ***********
 " vim -S vimbook.vim - starts with given session
+" vim -r ** - recover unsaved file (must be in the right directory)
+" vim -r - list all swapfiles
+" vim -r one.swp - use specific swap file
+"
+" Sessions and Views
+" ******************
 " :h sessionoptions
 " views save only one windows not a complete session
 " :mkview 1 - make a view called 1 (1-9)
 " :loadview 1 - loads view 1
 " :mkview main.vim - save a view into a file
 " .source main.vim - load it from there
-" :h modeline
-" :edit . - starts the vim filebrowser (hit <f1> for help ctrl-j to jump in ctrl-o to jump back)
-" :Explore <dir> - start filebrowser in current dir
-" :h mewtr-browse - for more information
-" vim has integrated file directories:
+"
+" vim has integrated file directories
+" ***********************************
 " :cd ... - change working directory to ...
 " :pwd - print working director
 " local directory - directory binded zo local window
@@ -1115,10 +1176,7 @@ endfunction
 " :h 'path'
 " :find me.two - finds me.two in given paths
 " g! - open file under cursor
-" :buffers - see all buffers
-" :buffer help
-" :set fielformats=unix,dos
-" :set fileformat? - prints actual file format
+"
 " :edit ++=>=unix file.txt - ++ff overrules fileformat to unix for file.txt
 " let readme.txt be an ms-dos file format
 " open readme.txt and 
@@ -1239,17 +1297,6 @@ endfunction
 " /19[0-9][0-9]\|20[0-9][0-9] - press <ctrl-a> hence each year is increased by
 " one
 " n. - find the next match and do the same
-" :args *.c find all c files and edit the first one, then
-" :argdo %s/\<x_cnt\>/x_counter/ge | update - argdo takes another command and
-" 					      execute it on all files in the argument list
-" 					      substitue x_cnt with x_counter
-" 					      g - replace all ocurrences and
-" 					      e - avoid interruption by errors
-" 					      | - separate two commands
-" 					      update - write file only if it
-" 					      was changed
-" :window/:bufdo - do some command on all windows/buffers
-" :ls/:buffers - to see all windows/buffers
 " edit change.vim with following text:
 " 	%s/-person-/Jones/g
 "	write tempfile
@@ -1266,11 +1313,9 @@ endfunction
 " vim -s script file.txt ... - - use file.txt commands in normal mode on
 " another file
 " 'magic' is on by default
-" <ctrl-c> - interrupt a search
-" :set ruler - show cursor position on the lower right (does not work here
-" since statusline was overidden before)
-" :set nowrapscan - now you get an error when search hits the top or bottom of
-" file
+" :buffers - see all buffers
+" :buffer help
+"
 "
 " Searching
 " *********
@@ -1285,7 +1330,29 @@ endfunction
 " // - repeat search but removing the offset
 " ?const=e-2 - search backwards and 2 lines up
 " /\cword - switch the case sensitive search with \c and \C; overrides preferences
-"
+" n/N - go tp next/previouse match
+" :cnext - takes you to the next match
+" <ctrl-c> - interrupt a search
+" :set nowrapscan - now you get an error when search hits the top or bottom of
+" file
+" /<pattern> - search for a specific pattern forward
+" ?<pattern> - search backward
+" note: use <up> and <down> arrows for previous searching
+"       use 3n for next and 2N for previous and last match
+" :set (no)ignorecase - option for searching
+" note: : commands also have a history
+" * - search the word under the current cursor
+" # - search the other direction
+" remind: 3*2# etc...
+" /the\> - limits the search to the not also for there - try it here
+" /\< - search beginning of word
+" /\> - search end of word
+" /\<the\> - does not match soothe or there
+" g#,g* - match partial words
+" :set hlsearch - option, higlights each match
+" :set incsearch - search while you are typing
+" :set nowrapscan - turns of stooping the search at begining or end of file
+" /Chapter/+2 - adress 2 line after match (also works with negative numbers)
 "
 " search patterns
 " ***************
