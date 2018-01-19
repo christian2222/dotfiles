@@ -520,6 +520,15 @@ endfunction
 " DOCUMENTATION
 " *************
 "
+" encryption
+" **********
+" vim -x file.one - encrypt file.one with entered encryption key
+" :set key= - kill encryption on current file
+" vim .x -n file.one - encrypt file.one without swapfile because swapfiles are
+" not encrypted!
+" :setlocal noswapfile - diables the swapfile
+" remind: encryption of vim is not very good
+
 " Moving around
 " *************
 " A - insert mode at the end of the line
@@ -569,6 +578,7 @@ endfunction
 " 3j3k4l5h - work the same with relative movement
 " H,M,L - moves you to the home,middle and last line you see
 "
+
 " File commands
 " *************
 " :q! - quit without saving
@@ -577,12 +587,19 @@ endfunction
 " ! - force to quit
 ":e! - reload the original version of the current file
 "
+
 " Mappings
 " ********
 " vnoremap _g y:exe "grep /" . escape(@", '\\/') . "/ *.c *.h"<CR> - yanks the visually selected text and searches for it in C files
 " map Q gq - a mapping
+" map <F5> i{<Esc>ea}<Esc> - set braces arounnd one word
+" map \p i(<Esc>ea)<Esc> - using backslash (has no function in vim)
+" map \c i{<Esc>ea}<Esc>
+" map - list all current mappings
+" remind: difference between iabbrev and imap
 "
-" Hwlp files
+
+" Help files
 " **********
 " :help deleting - how to delete text
 " :help index - index of all vim commands
@@ -651,6 +668,7 @@ endfunction
 " :h W10 - help on warning 10: Changing a readonly file
 " :h E128 - takes you to function, because there the error occurs
 "
+
 " Deleting
 " ********
 " d3w - delete the 3 following words
@@ -668,6 +686,7 @@ endfunction
 " d3w = 3dw expect that 3dw deletes a word 3 times
 " 2d3w - deletes 6 words
 "
+
 " Windows commands
 " ****************
 " windows commands all start with ctrl-w
@@ -695,6 +714,7 @@ endfunction
 " `` - come back to the mark where you came from
 " note: ` is a jump itself
 "
+
 " Marks
 " *****
 " mx - set mark x at current position x out of a..z
@@ -707,7 +727,12 @@ endfunction
 " "	The cursor position when last editing the file
 " [	Start of the last change
 " ]	End of the last change
-"
+" :'t,'b - using text between the marks t(op) and b(ottom)
+" :'<,'> - after visual mode these are actual marks selecting start and end of
+" visual selection
+" '>,$ - mix these marks with other items!
+" 5: - mark the current and the next  lines (and do something)
+
 " Jumps
 " *****
 " ctrl-o - come back from where you started
@@ -715,6 +740,7 @@ endfunction
 " note: ctrl-i=<tab>
 " :jumps - lists positions you jumped to
 "
+
 " Changing
 " ********
 " c2wbe - change 2 words under cursor and insert be (note: space after is not deleted)
@@ -725,7 +751,8 @@ endfunction
 " rx - replace character under cursor with x
 " 5rx - replaces the 5 following characters with xxxxx
 " 4r<enter> - replaces 4 characters with one line break
-"
+
+
 " Dot command
 " ***********
 " . - repeat the last change command 
@@ -733,6 +760,7 @@ endfunction
 " f>df>f<.f<. on the line above
 " /four<enter>cwfive<esc>n.n. - repeat replacing four with five
 "
+
 " Visual mode
 " ***********
 " velllld - enter visual mode, select til end of word and the first 3 chars of
@@ -752,6 +780,7 @@ endfunction
 " welp - 
 " D - delete from cursor to end of line
 "
+
 " Copy(=yank) and paste
 " ---------------------
 " Y=yy - yanks the whole line
@@ -778,7 +807,10 @@ endfunction
 " :help text-objects
 " R - replace mode (overrides characters)
 " :h operator
+" "vyiw - yank register v to inner word
+" "vyiw - yank register v to inner word
 "
+
 " delete pieces of text
 " ---------------------
 " x	delete character under the cursor (short for "dl")
@@ -792,23 +824,17 @@ endfunction
 " dgg	delete until the start of the file
 " use c instead of d for change commands; remind: you can also yank with y
 "
+
 " Lower and upper case
 " ********************
 " ~ - change to upper/lower keys 
 " :set tildeop - makes ~ to operator key
 "
+
+" vimrc
+" *****
 " :edit $MYVIMRC - in home directory
 " $VIMRUNTIME/vimrc_example.vim - example vimrc file
-" set backspace=indent,eol,start - allows <bs> to delete whitespace at start
-" of a line, a line break and character before insert mode
-" 	if &t_Co > 2 || has("gui_running")
-"	  syntax on
-"	  set hlsearch
-"	endif
-" if more than 2 colors are availible and gui is running turn syntax
-" highlighting on and set hlsearch
-" filetype plugin indent on - 1) filetype detection 2) use filetype plugin
-" files 3) use indent
 " autocmd FileType text setlocal textwidth=78 - no longer lines than 78 chars
 " in plain text files; only for onr file buffer
 " 	autocmd BufReadPost *
@@ -818,21 +844,34 @@ endfunction
 " after reading any file check if mark '" exists and jump to it if so
 " \ can break a line command (works only in vimscript file)
 " :help line-continuation
-" :map <F5> i{<Esc>ea}<Esc> - set braces arounnd one word
-" :map \p i(<Esc>ea)<Esc> - using backslash (has no function in vim)
-" :map \c i{<Esc>ea}<Esc>
-" :map - list all current mappings
-" optional and automatically loaded packages
+" 	if &t_Co > 2 || has("gui_running")
+"	  syntax on
+"	  set hlsearch
+"	endif
+" if more than 2 colors are availible and gui is running turn syntax
+" highlighting on and set hlsearch
+" filetype plugin indent on - 1) filetype detection 2) use filetype plugin
+" files 3) use indent
+" use :runtime! ftplugin/man.vim in your .vimrc
+" 	now you can :Man 3 echo to get to section 3 of echo
+
+
+" packages and plugins
+" ********************
 " :packadd! matchit
 " :h matchit - after restart
 " :h packages
 " plugin - vimscript file loaded automatically
 "     global plugin: Used for all kinds of files
 "   filetype plugin: Only used for a specific type of file
+" optional and automatically loaded packages
 "
+
 " Settings and options
 " ********************
 " :options - list of options
+" :set showmatch - show corresponding ) if you type a ( and vice versa
+" :set matchtime=15 - wait 1.5 seconds when matching
 " :set (no)<option> - (un)sets the specific option
 " :set so=0
 " :help 'scrolloff'
@@ -861,7 +900,17 @@ endfunction
 " :set history=50 - keep 50 search patterns/commands in mind
 " :set ruler - display cursor position in lower right corner
 " :set showcmd - display incomplete commands on status line; try with it 2f(w)
+" set backspace=indent,eol,start - allows <bs> to delete whitespace at start
+" of a line, a line break and character before insert mode
+" :set textwidth=30
+" :set shiftwidth=4 - change indent witdh
+" :set softtabstop<04 - making the <tab> key insert 4 spaces of indent
+" see 'expandtab','tabstop'
+" :set tabstop=3
+" :retab 	 - change tabstop to 8
+" :set guioptions+=b - add a horizontal scrollbar
 "
+
 " Using registers
 " ***************
 " "fyas - yank a sentence in the f register (a-z are registers) registers
@@ -872,8 +921,9 @@ endfunction
 " "fp - paste content of register f where the cursor is
 " "wdaw - delete a word and write it in register w (register before! delete)
 "
-" Windows
-" *******
+
+" Windows and Buffers
+" *******************
 " <ctrl-w>+/- - in/decrease the current window size 
 " (height)<ctrl-w>_ . guess what it does (set height to current window)
 " The 'winheight' option can be set to a minimal desired height of a window and
@@ -887,7 +937,10 @@ endfunction
 " :h Q_wi - more command to move to other windows
 " <ctrl-w>H/J/K/L - rearrange windows placing the current window left/down/up/top
 " differences between files
+" :buffers - see all buffers
+" :buffer help
 "
+
 " Diffing
 " *******
 " vimdiff file.one file.two
@@ -896,6 +949,7 @@ endfunction
 " :set noscrollbind - to deactivate the parallel scrolling while diffing
 " :diffupdate - to update the diff
 "
+
 " Tabs
 " ****
 " :tabedit file.one - create a new tab with file.one
@@ -903,6 +957,7 @@ endfunction
 " gt/T - go to next/previous tab
 " :help tab-page
 "
+
 " Macros
 " ******
 " qx - start recording to macro-register x (stop again with q)
@@ -916,12 +971,14 @@ endfunction
 " note: same registers as yank registers
 " => qC/<word><enter>q - append a search after what is in register c
 "
+
 " appended yanking
 " ****************
 " "aY - start yanking one line into register a
 " "AY - yank another (independent) line into register a
 " => register a now contains all lines in yanked order!
 "
+
 " Substitution
 " ************
 " :%substitute/Professor/Teacher/ - changes first Professor to Teacher in each
@@ -940,21 +997,23 @@ endfunction
 " %=1,$ short form
 " :?^Chapter?,/^Chapter/s=grey=gray=g - replace all grey with gray, but only
 " in this chapter (suppose you have Chapter headings) = is / in this command
-"
-" to sort
-" *******
-" :'t,'b - using text between the marks t(op) and b(ottom)
-" :'<,'> - after visual mode these are actual marks selecting start and end of
-" visual selection
-" '>,$ - mix these marks with other items!
-" 5: - mark the current and the next  lines (and do something)
+" :%s/\s\+$// - find whitespace at end of line and delete it
+" 		\s\+ is arbitrary many whitespace
+" 		$ if end of line
+
+" global command
+" **************
 " :[range]/global/[pattern]/[command] - find a match for a pattern and execute
 " a command there - very powerful
 " :g+//+s/foobar/barfoo/g - search pattern is included in +s then change
 " foobar to barfoo in all commented lines
-" :global - works on whole file without parameters
-" :substitue - works on one line without parameters
+" :g/./,/^$/join - turn each paragraph into a single line
+" 		   :g/./ globally find all ines with at least one character
+"		   ,/^$/ range starting from the current to an empty line
+"		   join  joins the range of lines together in one line
+" :g/\S/,/^\s*$/join - this works with blank lines
 "
+
 " Visual block mode
 " *****************
 " <ctrl-V> - enter visual block mode ($ in mode extend to all end of lines)
@@ -1003,6 +1062,7 @@ endfunction
 " for better recovering use options 'updatetime' and 'updatecount'
 " for location use options 'dir' and 'shell'
 "
+
 " Substitute
 " **********
 " :%s/\<four\>/4/gc - \< and \> match beginning and end of word
@@ -1035,6 +1095,7 @@ endfunction
 " \1 and \2 backreference the matched things by \(...\), there are up to 9
 " backreferences see :h sub-replace-special
 "
+
 " Sorting
 " *******
 " sort a list of files
@@ -1056,27 +1117,18 @@ endfunction
 " :'t+1,.g/^/m 't - mark the first line with mt and reverse this subpart
 "
 "
+
+" count words
+" ***********
 " g<ctrl-g> - count words
 " :h count-items
+"
+" man pages
+" *********
 " K - on one word: find man page for that word (ie. ls)
 " :h find-manpage
-" use :runtime! ftplugin/man.vim in your .vimrc
-" 	now you can :Man 3 echo to get to section 3 of echo
-" :%s/\s\+$// - find whitespace at end of line and delete it
-" 		\s\+ is arbitrary many whitespace
-" 		$ if end of line
-" :h usr_27.txt - for patterns
-" /<space><tab> - find spaces before tabs " vim `grep -l frame_counter *.c` - open all c files with frame_counter in it
-" 				    ` producing a list of files to pass it to
-" 				      vom
-" use :next and :first to browse through files
-" :grep error_string *.c - use :cnext and :cprev two swwitch between matched
-" files, use :clist for overview
-" note: :grep uses the external tool grep - see option 'grepprg'
 "
-" <<Editing Effeciently>>
-" **************************
-"
+
 " Command line
 " ************
 " move around in command line
@@ -1150,14 +1202,45 @@ endfunction
 " :w >>new.txt - buffer is appended tii new.txt
 " :set textwidth=72
 " :set textwidth - returns current value
+" :global - works on whole file without parameters
+" :substitue - works on one line without parameters
 "
+
 " Calling vim
 " ***********
 " vim -S vimbook.vim - starts with given session
+" vim `grep -l frame_counter *.c` -   open all c files with frame_counter in it
+" 				    ` producing a list of files to pass it to
+" 				      vom
+" use :next and :first to browse through files
+" :grep error_string *.c - use :cnext and :cprev two swwitch between matched
+" files, use :clist for overview
+" note: :grep uses the external tool grep - see option 'grepprg'
 " vim -r ** - recover unsaved file (must be in the right directory)
 " vim -r - list all swapfiles
 " vim -r one.swp - use specific swap file
-"
+" vim -h datafile - open dtafile binary
+" :set display=uhex - comes in handy here
+" g<ctrl-g> - see byte position in file
+" 2345go - go to byte 2345
+" vim -b datafile and after that :%!xxd to convert to binary view
+" :%!xxd -f - convert it back
+" see man xxd
+" edit change.vim with following text:
+" 	%s/-person-/Jones/g
+"	write tempfile
+"	quit
+" now write a shellscript applying these changes to a list of files
+" 	for file in *.txt; do
+"	  vim -e -s $file < change.vim " run vim in ex=commandline mode
+"	  			       " -s do this silently
+"	  			       " apply change.im to each file
+"	  lpr -r tempfile	       " print and delete(-r) the resulting tempfile
+"	done
+" ls | vim - - edit the output of the ls command
+" vim -s script file.txt ... - - use file.txt commands in normal mode on
+" another file
+
 " Sessions and Views
 " ******************
 " :h sessionoptions
@@ -1167,6 +1250,7 @@ endfunction
 " :mkview main.vim - save a view into a file
 " .source main.vim - load it from there
 "
+
 " vim has integrated file directories
 " ***********************************
 " :cd ... - change working directory to ...
@@ -1177,46 +1261,20 @@ endfunction
 " :find me.two - finds me.two in given paths
 " g! - open file under cursor
 "
+
+" file conversion
+" ***************
 " :edit ++=>=unix file.txt - ++ff overrules fileformat to unix for file.txt
 " let readme.txt be an ms-dos file format
-" open readme.txt and 
+" open readme.txt and
 " :set fileformat=unix
 " :write
 " writing the file in unix format
-" on hyperlinks(http://,ftp://,scp://,rcp://) type gf to follow them
-" ctrl-w f - open hyperlink in new window
-" perhabs install wgett and scp
-" see netrw
-" vim -x file.one - encrypt file.one with entered encryption key
-" :set key= - kill encryption on current file
-" vim .x -n file.one - encrypt file.one without swapfile because swapfiles are
-" not encrypted!
-" :setlocal noswapfile - diables the swapfile
-" remind: encryption of vim is not very good
-" vim -h datafile - open dtafile binary
-" :set display=uhex - comes in handy here
-" g<ctrl-g> - see byte position in file
-" 2345go - go to byte 2345
-" vim -b datafile and after that :%!xxd to convert to binary view
-" :%!xxd -f - convert it back
-" see man xxd
-" .Z.gz.bz2 - supported zip formats for vim
-" 4blraA - 4 words back one char forward replace current char with o append at
-" end of line
-" special keys in insert mode:
-" 	<C-Home>	to start of the file
-"	<PageUp>	a whole screenful up
-"	<Home>		to start of line
-"	<S-Left>	one word left
-"	<C-Left>	one word left
-"	<S-Right>	one word right
-"	<C-Right>	one word right
-"	<End>		to end of the line
-"	<PageDown>	a whole screenful down
-"	<C-End>		to end of the file
-" see ins-special-special
-" :set showmatch - show corresponding ) if you type a ( and vice versa
-" :set matchtime=15 - wait 1.5 seconds when matching
+" on hyperlinks (http://,ftp://,scp://,rcp://) type gf to follow them
+
+
+" auto completion
+" ***************
 " se<ctrl-p> - vim completes the rest use ctrl-p/n to switch between guesses
 " option 'complete'
 " complete certain types of items:
@@ -1228,19 +1286,42 @@ endfunction
 "	CTRL-X CTRL-T		words from a thesaurus
 "	CTRL-X CTRL-]		tags
 "	CTRL-X CTRL-V		Vim command line
+"	CTRL-X CTRL-N		autocompletion for text in insert mode
 " see ins-completion
 " 	CTRL-X CTRL-O 		omni compltion
 " 				see compl-omni-filetypes
-" "vyiw - yank register v to inner word
-" "vyiw - yank register v to inner word
-" remind: difference between iabbrev and imap
+
+" Scrolling
+" *********
+" scrolling (in line) with keeping the curspr where it is:
+" 	zh		scroll right
+"	4zh		scroll four characters right
+"	zH		scroll half a window width right
+"	ze		scroll right to put the cursor at the end
+"	zl		scroll left
+"	4zl		scroll four characters left
+"	zL		scroll half a window width left
+"	zs		scroll left to put the cursor at the start
+" when nowrap is set and you scroll in one line you can move the cursor
+" deoendend on what you see:
+" 	g0		to first visible character in this line
+"	g^		to first non-blank visible character in this line
+"	gm		to middle of this line
+"	g$		to last visible character in this line********
+"
+
+" to sort
+" *******
+" ctrl-w f - open hyperlink in new window perhabs install wget and scp
+" see netrw
+" .Z.gz.bz2 - supported zip formats for vim
+" 4blro - 4 words back one char forward replace current char with o
 " <ctrl-v><esc> insert the key character in text here escape
 " idea: get the coding of keys for mappings with <ctrl-v><key>
 " <ctrl-k>Co - make the copyright symbol (a digraph)
 " :digraphs - list all digraphs
 " :digraph a" ä - define own digraph
 " "g3dw - delete up to 3 words in register g
-" :set textwidth=30
 " :set wrap
 " v4jgq - gq formats a paragraph
 " see auto-format
@@ -1259,64 +1340,34 @@ endfunction
 " :set autoindent - next line gets the same indent as previous line
 " >> - indent the current line (> increases indent)
 " 4>> - increase the indent of 4 lines
-" :set shiftwidth=4 - change indent witdh
-" :set softtabstop<04 - making the <tab> key insert 4 spaces of indent
-" see 'expandtab','tabstop'
-" :set tabstop=3
-" :retab 	 - change tabstop to 8
-" :set guioptions+=b - add a horizontal scrollbar
-" scrolling (in line) with keeping the curspr where it is:
-" 	zh		scroll right
-"	4zh		scroll four characters right
-"	zH		scroll half a window width right
-"	ze		scroll right to put the cursor at the end
-"	zl		scroll left
-"	4zl		scroll four characters left
-"	zL		scroll half a window width left
-"	zs		scroll left to put the cursor at the start
-" when nowrap is set and you scroll in one line you can move the cursor
-" deoendend on what you see:
-" 	g0		to first visible character in this line
-"	g^		to first non-blank visible character in this line
-"	gm		to middle of this line
-"	g$		to last visible character in this line
 " :set linebreak
 " gj/gk - move to a wrapping line below/above
 " idea: bind these with mappings to arrow keys <up> and <down>
-" :g/./,/^$/join - turn each paragraph into a single line
-" 		   :g/./ globally find all ines with at least one character
-"		   ,/^$/ range starting from the current to an empty line
-"		   join  joins the range of lines together in one line
-" :g/\S/,/^\s*$/join - this works with blank lines
 " :set virtualedit=all - virtual space editing; makes editing tables easier
 " BJ - move back to the start of a whitespace separated word
 " note: use visual block mode for editing tables
 " :set virtualedit> - deactivate virtual cursor movement
 " gv . select the preselected text in visual mode
 " :s/2001/2002/g - replace 2001 by 2002; type gv to reselect the same text
-" /19[0-9][0-9]\|20[0-9][0-9] - press <ctrl-a> hence each year is increased by
-" one
-" n. - find the next match and do the same
-" edit change.vim with following text:
-" 	%s/-person-/Jones/g
-"	write tempfile
-"	quit
-" now write a shellscript applying these changes to a list of files
-" 	for file in *.txt; do
-"	  vim -e -s $file < change.vim " run vim in ex=commandline mode
-"	  			       " -s do this silently
-"	  			       " apply change.im to each file
-"	  lpr -r tempfile	       " print and delete(-r) the resulting tempfile
-"	done
-" ls | vim - - edit the output of the ls command
-" produceer | vim -S change.vim - - read input form producer
-" vim -s script file.txt ... - - use file.txt commands in normal mode on
-" another file
+" produceer | vim -S change.vim - - read input form producer (pipe)
 " 'magic' is on by default
-" :buffers - see all buffers
-" :buffer help
 "
-"
+
+" insert mode
+" ***********
+" special keys in insert mode:
+" 	<C-Home>	to start of the file
+"	<PageUp>	a whole screenful up
+"	<Home>		to start of line
+"	<S-Left>	one word left
+"	<C-Left>	one word left
+"	<S-Right>	one word right
+"	<C-Right>	one word right
+"	<End>		to end of the line
+"	<PageDown>	a whole screenful down
+"	<C-End>		to end of the file
+" see ins-special-special
+
 " Searching
 " *********
 " /defult/2 - search for default and move 2 lines below the pattern
@@ -1353,7 +1404,12 @@ endfunction
 " :set incsearch - search while you are typing
 " :set nowrapscan - turns of stooping the search at begining or end of file
 " /Chapter/+2 - adress 2 line after match (also works with negative numbers)
+" /<space><tab> - find spaces before tabs
+" /19[0-9][0-9]\|20[0-9][0-9] - press <ctrl-a> hence each year is increased by
+" one
+" n. - find the next match and do the same
 "
+
 " search patterns
 " ***************
 " /a* - search a any number of times (also empty string)
@@ -1413,7 +1469,9 @@ endfunction
 " \_s - matches whitespace or line break
 " \_a - matches alphabetic character or line break
 " \_. - matches any character of a line break
+" :h usr_27.txt - for patterns
 "
+
 " Folding
 " *******
 " zfap - fold a paragraph together
@@ -1442,6 +1500,7 @@ endfunction
 " zR - set foldlevel to the deepest
 " see 'fold-indent','fold-marker','fold-syntax','fold-expr','fold-diff'
 "
+
 " Tags
 " ****
 " ctags *.c - on command line tag all c files in current directory
@@ -1449,7 +1508,7 @@ endfunction
 " :tags - show list of tags
 " see 'tags' option
 "
-"
+
 "
 "
 " usr_25.txt 29 RELATED
