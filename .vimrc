@@ -85,6 +85,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>GG$<C-W>La
 " reload .vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " `q - return to the exact location of mark q
+" append a ; at the end of line using mark q
 nnoremap ends mqA;<esc>`q
 " viw - select word in visual mode
 " a"  - append quatations
@@ -108,6 +109,12 @@ nnoremap <C-l> :wq<cr>
 " disabled for now
 " nnoremap <M-l> :wq<cr>
 nnoremap jk :
+" make a heading:
+" Y yank the whole linie
+" p paste it adter
+" V visual line mode for next line
+" r* replace each selected character with *
+nnoremap <leader>h YpVr*
 " function with abritrary number of arguments
 " :verbose map " to  see where the map commands where defined
 " ?^==\+$ search backward a line starting with at least two =
