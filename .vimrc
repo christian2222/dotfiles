@@ -32,6 +32,8 @@ set ruler
 " highlight tabs and trailing spaces
 set listchars=tab:>-,trail:┐
 set list"
+" make vim and tmux work together
+set term=xterm-256color
 " INSERT-mode
 " ***********
 " some latex stuff
@@ -830,7 +832,7 @@ endfunction
 " Copy(=yank) and paste
 " ---------------------
 " Y=yy - yanks the whole line
-" P - puts before/above cursor
+" P/p - puts before/atfer cursor
 " y2w - yank (=vim's expression for copying) 2 words
 " p - put the yanked things
 " y$ - yanks til end of line
@@ -1010,7 +1012,7 @@ endfunction
 
 " Windows and Buffers
 " *******************
-" <ctrl-w>+/- - in/decrease the current window size 
+" <ctrl-w>+/- - in/decrease the current window size
 " (height)<ctrl-w>_ . guess what it does (set height to current window)
 " The 'winheight' option can be set to a minimal desired height of a window and
 "'winminheight' to a hard minimum height.
