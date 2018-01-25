@@ -33,7 +33,14 @@ set ruler
 set listchars=tab:>-,trail:┐
 set list"
 " make vim and tmux work together
-set term=xterm-256color
+" set term=xterm-256color
+" if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+"     execute "set <xUp>=\e[1;*A"
+"     execute "set <xDown>=\e[1;*B"
+"     execute "set <xRight>=\e[1;*C"
+"     execute "set <xLeft>=\e[1;*D"
+" endif
 " INSERT-mode
 " ***********
 " some latex stuff
@@ -43,6 +50,13 @@ inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 inoremap öö <bslash>
 inoremap binfty \bigcup_{i=1}^\infty
+" replace some special chars
+inoremap ä \"a
+inoremap ö \"o
+inoremap ü \"u
+inoremap Ä \"A
+inoremap Ö \"O
+inoremap Ü \"U
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
