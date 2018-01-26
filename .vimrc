@@ -50,13 +50,10 @@ inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 inoremap öö <bslash>
 inoremap binfty \bigcup_{i=1}^\infty
-" replace some special chars
-inoremap ä \"a
-inoremap ö \"o
-inoremap ü \"u
-inoremap Ä \"A
-inoremap Ö \"O
-inoremap Ü \"U
+inoremap banfty \bigcap_{i=1}^\infty
+inoremap jinfty \bigcup_{j=1}^\infty
+inoremap janfty \bigcap_{j=1}^\infty
+inoremap EW \mathbb{E}[]<left>
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
@@ -102,6 +99,13 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>GG$<C-W>La
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " `q - return to the exact location of mark q
 " append a ; at the end of line using mark q
+nnoremap ends mqA;<esc>`q
+" viw - select word in visual mode
+" a"  - append quatations
+" bi  - back to beginning of the word and in insert mode
+" lel - move right to put cursor on the first character of the word
+" 	move to the end of the word
+" 	move right to put cursor on the ending quote 
 nnoremap ends mqA;<esc>`q
 " viw - select word in visual mode
 " a"  - append quatations
@@ -1459,13 +1463,6 @@ endfunction
 " zf . create a fold
 " idea: use nested folds
 " zr - unfold all folds
-" zm - folds all folds again
-" zR/zM - for nested folds
-" zn/N - dis/enable folding
-" zi - toggle between (non)folding
-" z0 - open all folds on cursor line
-" zC - close all folds on cursor line
-" zd - delete a fold on cursor line
 " zD - delete all fold on cursor line
 " :set foldopen=all - opens all folds as you roll over
 " :set foldopen& - reset to default
@@ -1552,4 +1549,4 @@ endfunction
 
 "
 "
-" usr_25.txt 29 RELATED
+" usr_25.txt 29 h
