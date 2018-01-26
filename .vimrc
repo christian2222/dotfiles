@@ -18,6 +18,8 @@ filetype indent on
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+" set number
+set number
 " set relativenumber
 :set relativenumber
 " evening colorscheme
@@ -49,6 +51,8 @@ inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
 inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 inoremap öö <bslash>
+" see :help keycodes 
+" for more information about keystroke-coding
 inoremap binfty \bigcup_{i=1}^\infty
 inoremap banfty \bigcap_{i=1}^\infty
 inoremap jinfty \bigcup_{j=1}^\infty
