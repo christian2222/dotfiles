@@ -50,7 +50,14 @@ inoremap dthm <Bslash>begin{thm}<CR><CR><Bslash>end{thm}<Up>
 inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
 inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
+inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
 inoremap öö <bslash>
+inoremap mP <Bslash>mathbb{P}()<left>
+inoremap mA <Bslash>mathbb{A}()<left>
+inoremap wraum Wahrscheinlichkeitsraum
+inoremap mraum Ma<bslash>ss raum
+inoremap djoin <bslash>uplus
+inoremap sohne <bslash>setminus
 " see :help keycodes 
 " for more information about keystroke-coding
 inoremap binfty \bigcup_{i=1}^\infty
