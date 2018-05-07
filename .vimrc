@@ -51,6 +51,7 @@ inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
 inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
+inoremap ddoc <Bslash>documentclass{article}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
 inoremap öö <bslash>
 inoremap mP <Bslash>mathbb{P}()<left>
 inoremap mA <Bslash>mathbb{A}()<left>
@@ -64,7 +65,10 @@ inoremap binfty \bigcup_{i=1}^\infty
 inoremap banfty \bigcap_{i=1}^\infty
 inoremap jinfty \bigcup_{j=1}^\infty
 inoremap janfty \bigcap_{j=1}^\infty
+inoremap NN \mathbb{N}
 inoremap EW \mathbb{E}[]<left>
+inoremap PR \mathbb{P}()<left>
+inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
