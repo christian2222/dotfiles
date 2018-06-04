@@ -74,6 +74,8 @@ inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
 inoremap <C-l> <Esc>:wq<cr>
 inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
+" some other shortcuts
+inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
 " inoremap <esc> <nop> " force yourself to use jk 
 inoremap jk <esc>
 " other ways to exit than <esc>: <c-c> and <c-]>
