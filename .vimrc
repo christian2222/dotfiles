@@ -1566,4 +1566,38 @@ endfunction
 
 "
 "
-" usr_25.txt 29 h
+" usr_25.4
+"
+" Breaking lines
+" **************
+" set textwidth=30 - break the line after 30 characters (insert line break automatically)
+" wrap option - displays lines with a line break
+" gq - get a line aligned after you delete a word
+" v4jgq - v visual mode 4j 4 lines down and realign
+" see :h autoformat
+" gq4j -  less typing but you have to know the line count
+" } - move to the end of a paragraph
+" gq} - foramt until end of paragraph
+" gqap - ap stands for a paragraph, hence format the current paragraph
+" note: a paragraph is separaetd by empty lines
+" gggqG - gg beginning of file, G end of file, hence format the whole file
+" Warning: joins also not proper separated paragraphs, tab and spaces are not
+" emtpy lines!
+" see fo-table to format tables and more
+" set joinspaces - change the number of spaces used after a full stop
+" see formatprg  to format text in vim with an evternal program
+" :{range}center [width]
+" :1,5center 40 - format lines 1 to 5 with a width of 40
+" :1,5right 37 - similar with right alignment
+" :left 5 - indet of 5 form the left
+" package justify - to justify text, or use an external program
+" set autoindent - insert indents automatically
+" >> - add one indent to the current line
+" set shiftwidth - indent length for the line indent (default 8 - keep that)
+" 4>> - increases indent of four lines
+" set softtabstop=4 - tabwidht is 4
+" set expandtab - indet with spaces instead of tab
+" :retab 8 - change  tabstop to 8 and reformat the file
+" set nowrap - dont wrap a line if it does not fit into the window
+" set guioptions+=b - show horizontal scrollbar in the GUI
+"
