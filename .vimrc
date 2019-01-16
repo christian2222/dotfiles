@@ -1481,8 +1481,10 @@ endfunction
 " idea: use nested folds
 " zr - unfold all folds
 " zD - delete all fold on cursor line
+" :set foldcolumn=4 - displays a folding column on the left
 " :set foldopen=all - opens all folds as you roll over
 " :set foldopen& - reset to default
+" :set foldclose=all - closes every fold if you move out of it
 " note: folding is local to window
 " :mkview - save folds
 " :loadview - load folds (and other 'viewoptions') again
@@ -1566,7 +1568,6 @@ endfunction
 
 "
 "
-" usr_25.4
 "
 " Breaking lines
 " **************
@@ -1600,4 +1601,118 @@ endfunction
 " :retab 8 - change  tabstop to 8 and reformat the file
 " set nowrap - dont wrap a line if it does not fit into the window
 " set guioptions+=b - show horizontal scrollbar in the GUI
+" 
+" Scrolling
+" *********
+" 	zh		scroll right
+" 	4zh		scroll four characters right
+" 	zH		scroll half a window width right
+" 	ze		scroll right to put the cursor at the end
+" 	zl		scroll left
+" 	4zl		scroll four characters left
+" 	zL		scroll half a window width left
+" 	zs		scroll left to put the cursor at the start
+" suppose teh cursor is on w of which:
+" 			      |<-- current window -->|
+" 		some long text, part of which is visible in the window ~
+" 	ze	  |<--	   window     -->|
+" 	zH	   |<--     window     -->|
+" 	4zh		  |<--	   window     -->|
+" 	zh		     |<--     window	 -->|
+" 	zl		       |<--	window	   -->|
+" 	4zl			  |<--	   window     -->|
+" 	zL				|<--	 window     -->|
+" 	zs			       |<--	window	   -->|
+" never scroll witch these commands
+" g0		to first visible character in this line
+" 	g^		to first non-blank visible character in this line
+" 	gm		to middle of this line
+" 	g$		to last visible character in this line
+" 		|<--	 window    -->|
+" 	some long    text, part of which is visible ~
+" 		 g0  g^    gm	     g$
 "
+" set linebreak is better than wrap or nowrap
+" 'breakat' specifies the characters where a break can be inserted.
+" showbreak' specifies a string to show at the start of broken line.
+" Set 'textwidth' to zero to avoid a paragraph to be split.
+" dj dk  - without linewrap the same a j and k, with linewrap move the cursor
+" one line up or down
+" :g/./,/^$/join  
+" :g/./ - find globally all lines that contain at least one character
+"	,/^$/ - range starting from the current (non-empty) line until an mpty line
+"		join - joins the range of lines tigether into one line
+" note: does not work with blanked or tabbed lines!
+" :g/\S/,/^\s*$/join - works wirh blank lines but still requires a blank or
+" empty line at the end of the file
+"
+" Editing tables
+" **************
+" Suppose we have the following table
+" 	nice table	  test 1	test 2	    test 3 ~
+" 	input A		  0.534
+" 	input B		  0.913
+" set virtualedit=all
+" /test 3 and prsss j - to enter a value for test 3 of input A
+" press Bj
+" copying the third coulumn:
+" move to the left upper corner of a coulumn
+" CTRL-V 2j 9l y
+" move cursor to test 1 and press P
+" set virtualedit= - back to non-virtual moevemnts
+" in table cells use rx,grx,R0.786 and gR0.786
+" /19[0-9][0-9]\|20[0-9][0-9]
+" \| or, [0-9] range pattern
+" press 4 CTRL-A to increase a number by 4 (remind octals start with 0 unless
+" you use set nrformats-=octal
+" CTRL-X is similar for substraction
+" :args *.c - put all c-files in the argument list
+" :argdo %s/\<x_cnt\>/x_counter/ge | update - \< and \> to match the whole
+" world only, e supressses errormesssages which would abort the batch job; |
+" seperates two commands, update saves the file only when changes were made.
+" windo and bufdo execute its argument in all widows or buffers, but beware
+" because the bufferlist might be bigger than you think, check it with buffers
+" like ls
+" for shell scripts ex-mode (=command mode) is better than normal mode:
+" 	%s/-person-/Jones/g
+" 	write tempfile
+" 	quit
+" put these lines in change.vim and use the following shell script:
+" 	for file in *.txt; do
+" 		vim -e -s $file < change.vim
+" 		lpr -r tempfile
+" 	done
+" -e exmode -s silently
+"  lpr -r tempfile - prints the tempfile and deletes it (-r) afterwards
+" vim -w script file.txt - records the edit of file.txt to script; script can
+" be edited later -W overrides the cripts file
+" set ignorecase smartcase - search patterns with uppercases make the search
+" casesensitive
+" /\cword /\CwoRd make the search case(in)sensitive no matter what ignorecase
+" and smartcase options we have; advantage: search history knows about
+" case(in)sensitivity
+" Note: set magic - changes use of "\"-items in search patterns
+" 	interrupt a search with CTRL-C or CTRL-Break on Windows if it takes
+" 	too long
+" searching for filenames
+" 	:set isfname
+" 	isfname=@,48-57,/,.,-,_,+,,,#,$,%,~,=
+" /the\nword - searches with linebreak \n
+" /the\_sword - \_s searches for a space or a line break
+" /the\_s+word - allow many whitespaces between the and word
+" /\_a - searches an alphabetix charactre or a line break
+" /\_. - searches any character or a line break (attetion: can be very slow)
+" /"\_[^"]*" - matches a double quote split over several lines
+" /\d\u\u\u\d\d - search for something like NGU103
+" /\d\u{3}\d\{3} - searches the same
+" /[0-9][A-Z]\{3}[0-9]\{3} - using [] ranges but is slower
+" /\<\h\w*\> - \< and \> find only whole words, \h = [A-Za-z_] and \w = [0-9A-Za-z_]
+" Note: \< and \> depend on iskeyword option
+" /\w\@<!\h\w*\w\@! - try this yourself
+"
+"
+" usr_29
+
+
+
+
