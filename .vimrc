@@ -1710,8 +1710,15 @@ endfunction
 " Note: \< and \> depend on iskeyword option
 " /\w\@<!\h\w*\w\@! - try this yourself
 "
+" :set path
+" :set define
+" == - reindent one line
+" gg=G - reindent the whole file
+" :set cinoptions - indent options
+" filetyüe indent on/off - en-/disables detecting the filetpe and switches cindent on if necessary
+" see indent-expression
 "
-" usr_29
+" usr_30.4
 
 
 
