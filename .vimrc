@@ -77,6 +77,8 @@ inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
 " some other shortcuts
 inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
 " inoremap <esc> <nop> " force yourself to use jk 
+" some bash shortcuts
+inoremap ati apt-get install<Space>
 inoremap jk <esc>
 " other ways to exit than <esc>: <c-c> and <c-]>
 " inoremap <M-l> <Esc>:wq<cr>
