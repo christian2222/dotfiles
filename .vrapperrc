@@ -1,2 +1,8 @@
 inoremap smain public static void main(String[] args) {<CR><Up><Tab>
 inoremap syso System.out.println();<Left><Left>
+inoremap fori for(int i = 0; i < ; i++) {<CR><Up><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap fork for(int k = 0; k < ; k++) {<CR><Up><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+inoremap pvd public void<Space>
+inoremap pit public int<Space>
+inoremap pbo public boolean<Space>
+inoremap pst public String<Space>
