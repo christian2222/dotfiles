@@ -1,1 +1,2 @@
-inoremap smain System.out.println();
+inoremap smain public static void main(String[] args) {<CR><Up><Tab>
+inoremap syso System.out.println();<Left><Left>
