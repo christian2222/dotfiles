@@ -371,6 +371,7 @@ print(y)
 fruits = ["apple", "banana", "cherry"]
 for x in fruits:
   print(x)
+print("Bert")
 					; [end python]
 (current-buffer)
 
@@ -379,12 +380,16 @@ for x in fruits:
 (call-process "ls" nil "*scratch*" nil "-l")
 
 (call-process "python" nil "*scratch*" nil "first.py")
-(shell-quote-argument "-n '/begin python,/end python/{//!p;}' .emacs")
 
-(call-process "sed" nil "*scratch*" nil "-n\ \'/begin python,/end python/{//!p;}' .emacs")
 
-(with-temp-file "test.txt" ()
+; (call-process "find.sh" nil t nil) - error no such file or directory
 
+
+
+(shell-command "./find.sh")
+(call-process "python" nil "*scratch*" nil "grep.py")
+
+		
 
 
 
