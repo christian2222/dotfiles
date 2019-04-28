@@ -130,7 +130,7 @@ pi
 					; (+ 23 'x)  produces an error
 
 					; inserts text in current buffer and returns nil
-(insert "changed")
+(insert "changed")changedchanged
 
 					; Function: foo integer1 &optional integer2 &rest integers
 					; object may be of any tpye
@@ -260,16 +260,9 @@ emacs-minor-version
 
 
 (eq 'foo 'foo)
-     => t
-
 (eq 456 456)
-     => t
-
 (eq "asdf" "asdf")
-     => nil
-
 (eq '(1 (2 (3))) '(1 (2 (3))))
-     => nil
 
 					; eq checks if the pointers to the object are equal
 (setq foo '(1 (2 (3))))
@@ -346,6 +339,37 @@ emacs-minor-version
 
 
 
+(* 2 3)
+(let ((x 1)
+      (y 2)))
+
+(setq myVar 7)
+
+
+					; (start-process "Shell" ".emacs"  "ls")
+(call-process "ls" nil t nil "-l")
+
+					; dont use cd to change the working directory see below
+					; (call-process "cd" nil t nil "~/python")
+
+					;works
+(call-process "pwd" nil t nil)
+
+					; starts new emacs
+(call-process "emacs" nil 0 nil "--geometry" "30x5")
+
+					; Note: file yfirst.py> has to lie in the current working directory
+					; M-x cd to change this directory
+					; destination t means current buffer
+(call-process "python" nil t nil "first.py")
+
+					; put into scratch buffer
+(call-process "ls" nil "*scratch*" nil "-l")
+
+(call-process "python" nil "*scratch*" nil "first.py")
+
+
+(current-buffer)
 
 
 
@@ -353,3 +377,10 @@ emacs-minor-version
 
 
 
+
+
+
+
+addDotFiles.sh	makeLinks.sh
+
+Process Shell finished
