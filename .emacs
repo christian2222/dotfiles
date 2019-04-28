@@ -363,16 +363,27 @@ emacs-minor-version
 					; destination t means current buffer
 (call-process "python" nil t nil "first.py")
 
+					; [begin python]
+x = 5
+y = "John"
+print(x)
+print(y)
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  print(x)
+					; [end python]
+(current-buffer)
+
+					; comment
 					; put into scratch buffer
 (call-process "ls" nil "*scratch*" nil "-l")
 
 (call-process "python" nil "*scratch*" nil "first.py")
+(shell-quote-argument "-n '/begin python,/end python/{//!p;}' .emacs")
 
+(call-process "sed" nil "*scratch*" nil "-n\ \'/begin python,/end python/{//!p;}' .emacs")
 
-(current-buffer)
-
-
-
+(with-temp-file "test.txt" ()
 
 
 
