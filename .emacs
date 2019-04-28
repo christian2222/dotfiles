@@ -212,6 +212,137 @@ emacs-minor-version
 
 					; four types of arrays:strings, vectors, bool-vectors and char-tables
 
+					;m strings cannot hold char outside of the range (0,225) especially not hyper super of alt modifiers
+
+ 	
+
+					; #("foo bar" 0 3 (face bold) 3 4 nil 4 7 (face italic))
+					; properties of strings
+
+					; vector is a one dimensional array of any type
+					; [1 "teo" (three)] a vector of three elements
+
+					; A char-table is a one-dimensional array of elements of any type
+
+					; A bool-vector is a one-dimensional array of elements that must be t or nil
+
+(make-bool-vector 3 t)
+(make-bool-vector 3 nil)
+					; they are equivalent because only the first 3 bits are used
+(equal #&3"\377" #&3"\007")
+
+
+(make-hash-table)
+
+					; lisp macros are NOT keyboard macros
+					; primitive functions are written in C don't redefine them!
+
+(current-buffer)
+(point-marker)
+					; each window belongs to one and exactly one frame
+(selected-window)
+					;  A frame is a rectangle on the screen that contains one or more Emacs windows
+(selected-frame)
+
+
+
+(process-list)
+					; A stream is an object that can be used as a source or sink for characters
+					;  An overlay specifies properties that apply to a part of a buffer.
+
+
+ 	
+
+(type-of 1)
+(type-of 'nil)
+(type-of '())
+(type-of '(x))
+
+
+(eq 'foo 'foo)
+     => t
+
+(eq 456 456)
+     => t
+
+(eq "asdf" "asdf")
+     => nil
+
+(eq '(1 (2 (3))) '(1 (2 (3))))
+     => nil
+
+					; eq checks if the pointers to the object are equal
+(setq foo '(1 (2 (3))))
+(eq foo foo)
+(eq foo '(1 (2 (3))))
+(eq [(1 2) 3] [(1 2) 3])
+(eq (point-marker) (point-marker))
+
+					; equal checks for equal components
+(equal 'foo 'foo)
+(equal 456 456)
+(equal "asdf" "asdf")
+(eq "asdf" "asdf")
+(equal '(1 (2 (3))) '(1 (2 (3))))
+(eq '(1 (2 (3))) '(1 (2 (3))))
+(equal [(1 2) 3] [(1 2) 3])
+(eq [(1 2) 3] [(1 2) 3])
+(equal (point-marker) (point-marker))
+(eq (point-marker) (point-marker))
+
+					; The test for equality is implemented recursively; for example, given two cons cells x and y, (equal x y) returns t if and only if both the expressions below return t:
+
+(equal (car x) (car y))
+(equal (cdr x) (cdr y))
+
+					; Because of this recursive method, circular lists may therefore cause infinite recursion (leading to an error).
+
+
+					; some predicates
+(floatp 8.0)
+(integerp 9)
+(numberp 9)
+(numberp 8.0)
+(wholenump 9)
+(wholenump -9)
+(zerop 0)
+(zerop 1)
+
+					; for number comparsion use = not eq
+					; = compares numbers whereas eq compares objects
+					; eq does not report errors
+					;compare with = /= < <= > >=
+(max 5 6 9)
+(max 2.5 6 10)
+
+(min -4 11)
+(abs -7)
+
+
+(defvar fuzz-factor 1.0e-6)
+(defun approx-equal (x y)
+  (or (and (= x 0) (= y 0))
+      (< (/ (abs (- x y))
+            (max (abs x) (abs y)))
+         fuzz-factor)))
+(approx-equal 3.00000001 3.0)
+
+(floor -1.7)
+(floor 5.99 3)
+
+(+)
+(+ 1 2 3 4)
+(- 10 1 2 3 4)
+(-)
+(* 1 2 3 4)
+
+
+
+					; div
+(/ 5 2)
+					; modulo
+(% 9 4)
+(mod 9 4)
 
 
 
