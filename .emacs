@@ -389,13 +389,6 @@ print("Bert")
 (shell-command "./find.sh")
 (call-process "python" nil "*scratch*" nil "grep.py")
 
-		
-
-
-
-
-
-
 
 addDotFiles.sh	makeLinks.sh
 
