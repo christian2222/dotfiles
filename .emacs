@@ -130,7 +130,7 @@ pi
 					; (+ 23 'x)  produces an error
 
 					; inserts text in current buffer and returns nil
-(insert "changed")changedchanged
+; (insert "changed")
 
 					; Function: foo integer1 &optional integer2 &rest integers
 					; object may be of any tpye
@@ -390,6 +390,93 @@ print("Bert")
 (call-process "python" nil "*scratch*" nil "grep.py")
 
 
-addDotFiles.sh	makeLinks.sh
 
-Process Shell finished
+(defun findPatternInFile (strFile beginPattern endPattern)
+					; open th file
+  (find-file strFile)
+					; got to the beginning of file
+  (goto-char (point-min))
+  
+  (re-search-forward beginPattern (point-max) (message "oops"))
+  (forward-line 1)
+  (setq patternAnfang (point))
+  (re-search-forward endPattern (point-max) (message "uups"))
+  (forward-line -1)
+  (move-end-of-line nil)
+  (setq patternEnde (point))
+  (setq searchedText  (buffer-substring-no-properties patternAnfang patternEnde))
+
+					; close file
+  (kill-buffer strFile)
+					; return searchedText to define a variable by defvar
+  (message searchedText)
+
+  )
+
+
+; (defvar pycodeText (findPatternInFile "test.tex" "begin{pycode}" "end{pycode}"))
+; (defvar latexcodeText (findPatternInFile "test.tex" "begin{document}" "end{document}"))
+					; (insert latexcodeText)
+
+(defun grepToVariablesPy(grepBufferString)
+  					; grep \py{variable}s to new buffer "grep"
+  (shell-command "grep -o '\\py{[^}]*}' toGrep.py" grepBufferString)
+  (switch-to-buffer grepBufferString)
+					; free variables from surrounding \py{}
+  (goto-char (point-min))
+  (replace-regexp "^py\{" "")
+  (goto-char (point-min))
+  (replace-regexp "}$" "")
+
+  (write-file "variables.py")
+  (kill-buffer "variables.py")
+  )
+
+(defun createFinalPy(finalBufferString inputText)
+  (generate-new-buffer finalBufferString)
+  (switch-to-buffer finalBufferString)
+  (insert "# *** python code ***\n")
+  (insert inputText)
+  (insert "\n")
+  (insert "# *** variable listing ***\n")
+  (write-file "final.py")
+  (kill-buffer "final.py")
+  (shell-command "sed 's/\\(.*\\)/print(\"Variable\\ \\1\\ is\\ :\\ \"\+\\ str(\\1))/g' variables.py >> final.py")  
+  )
+
+
+(defun createScratch ()
+
+					; save current position
+  (setq savePoint (point))
+  
+  (defvar pycodeText (findPatternInFile "test.tex" "begin{pycode}" "end{pycode}"))
+  (defvar latexcodeText (findPatternInFile "test.tex" "begin{document}" "end{document}"))
+
+  (generate-new-buffer "pythonBuffer")
+  (switch-to-buffer "pythonBuffer")
+  (insert pycodeText)
+  (write-file "main.py" nil)
+  (kill-buffer "main.py")
+
+  (generate-new-buffer "grepVariables")
+  (switch-to-buffer "grepVariables")
+  (insert latexcodeText)
+  (write-file "toGrep.py")
+
+  (grepToVariablesPy "grep")
+
+  (createFinalPy "final" pycodeText)
+
+
+
+  					; call python process on final.py and put the reult into the *scratch* buffer
+  (call-process "python" nil "*scratch*" nil "final.py")
+
+  
+					; back to the current buffer
+  (switch-to-buffer "dominic.el")
+					; return to saved posistion
+  (goto-char savePoint)
+  
+  )
