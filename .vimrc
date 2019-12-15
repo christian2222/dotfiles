@@ -1719,8 +1719,31 @@ endfunction
 " :set cinoptions - indent options
 " filetyüe indent on/off - en-/disables detecting the filetpe and switches cindent on if necessary
 " see indent-expression
+" autoindent, smartindent options
+" lines starting with # are not indented
+" option shiftwidth
+" to remove or add one shiftwidth of indent use CTRL-D and CTRL-T in insert
+" mode
+" in Normalmode use << and >> to remove or add one shiftwidth for indent
+" >i{ - add one indent inside the current block of {}
+" >a{ - does the same including the {}-lines
+" tabstop is 8 by default because its often 8 on printers and other systems
+" for files with different tabstop see 25.3 to fix it
+" :set softtabstop=4 - vim uses a combination of spaces and tabs
+" for indentation and combines 8 spaces to one tab
+" <BS> will always delete the amount specified by softtabstop
+" :set expandtab - alls inserted tabs will be spaces
+" :set expandtab
+" :%retab - replace all tabs to spaces expect for them after a non-blank
+" character; if you want to replace tham as well use ! by retab
+" Warning: retab! also replaces tabs inside strings
+" use /"[^"\t]*\t[^"]*"  to find tabs inside strings, but its recommended to
+" use "\t" in strings
+" :set noexpandtab
+" %retab! - convert all spaces back to tabs
 "
-" usr_30.4
+
+" usr_30.6
 
 
 
