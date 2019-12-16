@@ -1741,9 +1741,43 @@ endfunction
 " use "\t" in strings
 " :set noexpandtab
 " %retab! - convert all spaces back to tabs
+" gq]/ - bring a twolines commnet in one line
+" o in middle of a comment starts a new line
+" see formatoptions
+" :set comments=:// - sets comments to //
+" beofre the colon you can place some flags
+" :set comments=n:>,n:! - comments starting with > and ! and are nested (n) 
+" :set comments=s1:/*,mb:*,ex:*/ - for nice c comments; see format-comments
+" Only on GUI (starting with g)
+" g :browse split /etc - opens a file browser in /etc and splits the window if
+" g you select a file
+" g when you use browse again it uses the last opened directory see option
+" g browsedir
+" g :confirm edit foo.txt - produces a dialog 
+" g :confirm browse edit - test it
+" g use the <Alt>-key to acces the menu
+" g :winpos - see current windows position on screen
+" g :winpos 172 103 - moves the window to the given position
+" g you can set lines and columns for the size of a window
+" g gvim -geometry 80x25+100+300 - from command line
+" g gvimrc is like vimrc but for graphical environments
+" The undo tree
+" :earlier 1f - takes you back to the time you last edited the file
+" :later 1f - takes you forward again
+" the undo tree can branch
+" :undo 2 
+" use g+ g- to navigate through the undo tree
+" :echo undotree()
+" :inoremap - Insertmode
+" :vnoremap - Visualmode
+" :nnoremap - Normalmide
+" :iunmap,vunmap,nunmap - unmap mappings
+" special chars for mapping: <Bar><Space>
+" abbrevations are triggered, when you type a non-word-character after an
+" abbrevation, a mapping is triggered when you type it's last character
+" <Nop> - maps a key to nothing
 "
-
-" usr_30.6
+" usr_40.2
 
 
 
