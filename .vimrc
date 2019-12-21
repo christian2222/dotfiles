@@ -1914,7 +1914,117 @@ endfunction
 " \<C-W>		CTRL-W
 " note: you should use \t in programming languages and not hardcode tabs
 " see expr-quote
-" 
+" basic expressions:
+" $NAME - environment variable
+" &name - option
+" @r - register
+" see also expression-syntax for more information
+" generell math is there
+" concatenate strings with a dot
+" (a) ? (b) : (c) - if a evaluates to true b is used otherwise use c
+" :if
+" 	{statements}
+" :else
+" 	{statements}
+" :elseif {condition}
+" 	{statements}
+" :endif
+" use if and else as in any other programming language
+" Logic operators
+" == - equal
+" != - unequal
+" >(=) - greater (or equal)
+" <(=) - smaller (or equal)
+" v:version for Vim version
+" for strings we have two more comparators:
+" :if str =~ " "
+" :  echo "str contains a space"
+" :endif
+" :if str !~ '\.$'
+" :  echo "str does not end in a full stop"
+" :endif
+" use single quotes for a pattern
+" ==? - compares strings to be equal ignore case
+" !~# - checks if a pattern doesn't match and checking case
+" :continue - jump back to the start of th while loop
+" :break - jump forward to ":endwhile"
+" :execute allows executing the result of an expression
+" :execute "tag " . tag_name - what does this?
+" :normal executes command in normal mode
+" :normal gg=G - formats the whole file
+" :execute "normal " . normal_commands
+" :execute "normal Inew text\<Esc>" - \<Esc> avoids <Esc> in your script
+" use eval() function to evaluate a string and get its expression
+" :let optname = "path"
+" :let optval = eval('&' . optname)
+" &path results in the path option
+" :exe 'let optval = &' . optname - does the same
+" see functions for a complete list of functions
+" :call search("Date: ", "W") -W flag -> search doesn't wrap around the end of
+" a file
+" :let line = getline(".")
+" :let repl = substitute(line, '\a', "*", "g")
+" :call setline(".", repl)
+" the result of this is equal to: :substitue/\a/*/g
+" Use CTRL-] to jump to detail help on a function
+" function-list,string-functions,list-functions,dict-functinos,float-functions,bitwise-functions,var-functions,cursor-functions, mark-functions, text-functions,system-functions,file-functions, date-functions,time-functions,*buffer-functions,window-functions,arg-functions,command-line-functions,quickfix-functions,completion-functions,folding-functions,syntax-functions,highlighting-functions, and many more...
+" :function Min(num1, num2)
+" :  if a:num1 < a:num2
+" :    let smaller = a:num1
+" :  else
+" :    let smaller = a:num2
+" :  endif
+" :  return smaller
+" :endfunction
+" a:var tells vim that this is a function variable
+" :echo Min(5,8)
+" :function! Min(num1,num2,num3) - redefine the function Min
+" :function Count_words() range
+" :  let lnum = a:firstline
+" :  let n = 0
+" :  while lnum <= a:lastline
+" :    let n = n + len(split(getline(lnum)))
+" :    let lnum = lnum + 1
+" :  endwhile
+" :  echo "found " . n . " words"
+" :endfunction
+" :10,30call Count_words() - count all word on lines 10 to 30
+"
+" :function  Number()
+" :  echo "line " . line(".") . " contains: " . getline(".")
+" :endfunction
+" :10,15call Number() - this function will be called six times
+" function Show(start, ...) - a:1 contains first optional argument a:2 the
+" second one, a:0 contains number of extra arguments
+" :function Show(start, ...)
+" :  echohl Title
+" :  echo "start is " . a:start
+" :  echohl None
+" :  let index = 1
+" :  while index <= a:0
+" :    echo "  Arg " . index . " is " . a:{index}
+" :    let index = index + 1
+" :  endwhile
+" :  echo ""
+" :endfunction
+" :echohl specifies highlighting for following echo command; :echon doesn't
+" output a line break
+" a:000 is a list of all the ...-arguments see a:000
+":function [name] - shows information about specific function
+" see debug-scripts for debugging mode and use the verbose option
+" :delfunction Show - deletes the function Show (outputs an error if it
+" doesn't exist)
+" you can also use function references
+" :let alist = ['aap', 'mies', 'noot'] - defines a list
+" :let alist = []
+" :call add(alist, 'foo')
+" :call add(alist, 'bar')
+" :echo alist
+" :echo alist + ['foo', 'bar'] - concatenaption of lists, you can also use the
+" extend function
+" note: add as a function has another effect than list concatenaption
+" FOR LOOP
+
 " 41.3
 
 
