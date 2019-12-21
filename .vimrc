@@ -46,29 +46,32 @@ set list"
 " INSERT-mode
 " ***********
 " some latex stuff
-inoremap dthm <Bslash>begin{thm}<CR><CR><Bslash>end{thm}<Up>
-inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
-inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
-inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
-inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
-inoremap ddoc <Bslash>documentclass{article}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
-inoremap öö <bslash>
-inoremap mP <Bslash>mathbb{P}()<left>
-inoremap mA <Bslash>mathbb{A}()<left>
-inoremap wraum Wahrscheinlichkeitsraum
-inoremap mraum Ma<bslash>ss raum
-inoremap djoin <bslash>uplus
-inoremap sohne <bslash>setminus
+augroup LatexStuff
+	autocmd! " remove previously defined autocommands, so they are not loaded multiply times
+	autocmd FileType tex inoremap dthm <Bslash>begin{thm}<CR><CR><Bslash>end{thm}<Up>
+	autocmd FileType tex inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
+	autocmd FileType tex inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
+	autocmd FileType tex inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
+	autocmd FileType tex inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
+	autocmd FileType tex inoremap ddoc <Bslash>documentclass{article}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
+	autocmd FileType tex inoremap öö <bslash>
+	autocmd FileType tex inoremap mP <Bslash>mathbb{P}()<left>
+	autocmd FileType tex inoremap mA <Bslash>mathbb{A}()<left>
+	autocmd FileType tex inoremap wraum Wahrscheinlichkeitsraum
+	autocmd FileType tex inoremap mraum Ma<bslash>ss raum
+	autocmd FileType tex inoremap djoin <bslash>uplus
+	autocmd FileType tex inoremap sohne <bslash>setminus
 " see :help keycodes 
 " for more information about keystroke-coding
-inoremap binfty \bigcup_{i=1}^\infty
-inoremap banfty \bigcap_{i=1}^\infty
-inoremap jinfty \bigcup_{j=1}^\infty
-inoremap janfty \bigcap_{j=1}^\infty
-inoremap NN \mathbb{N}
-inoremap EW \mathbb{E}[]<left>
-inoremap PR \mathbb{P}()<left>
-inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
+	autocmd FileType tex inoremap binfty \bigcup_{i=1}^\infty
+	autocmd FileType tex inoremap banfty \bigcap_{i=1}^\infty
+	autocmd FileType tex inoremap jinfty \bigcup_{j=1}^\infty
+	autocmd FileType tex inoremap janfty \bigcap_{j=1}^\infty
+	autocmd FileType tex inoremap NN \mathbb{N}
+	autocmd FileType tex inoremap EW \mathbb{E}[]<left>
+	autocmd FileType tex inoremap PR \mathbb{P}()<left>
+	autocmd FileType tex inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
+augroup end
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
@@ -1776,8 +1779,89 @@ endfunction
 " abbrevations are triggered, when you type a non-word-character after an
 " abbrevation, a mapping is triggered when you type it's last character
 " <Nop> - maps a key to nothing
+" :command DeleteFirst 1delete - when you execute :DeleteFirst Vim executes
+" :1delete; note: Use capital letters to start defining a commnd
+" use :command to see all commands
+" user defined commands can take a series of arguments. Their number is
+" specified in the -nargs option
+" :command -nargs=0 DeleteFirst 1delete
+" -nargs=0 no arguments (default)
+" -nargs=1 one argument
+" -nargs=* any number of arguments
+" -nargs=? Zero or one argument
+" -nargs=+ one or more arguments
+" :command -nargs=+ Say :echo "<args>" - now type :Say Hello World
+" :command -nargs=+ Say :echo <q-args> - :Say Hello "World" will result in
+" corret escaped characters
+" <f-args> is used for calling function arguments
+" :command -range=% SaveIt :<line1>,<line2>write! save_file - save the whole
+" file to save_file
+" -range default is the current line
+" -range=% the whole file
+" -range={count} the last number in it is used as a single number whose
+"  default is {count}
+" other keyword in command
+" -count={number} the count can be used by the <count> keyword
+" -bang results in a !
+" -register specifies a register, use <reg> to use it
+" -complete={type} see :command-completion for a list of possible values
+" -bar the command can be followed by | and another command, or " and a
+"  comment
+" -buffer only availible in the current buffer
+" use ! to redefine commands
+" :delcommand SaveIt - deletes the command SaveIt
+" :comclear - deletes all user commands !cannot be undone!
+" Autocommands
+" autocommands are executed automatically in response to some event
+" :function DateInster() - replace date timestamp on the end of a file ech
+" time it is written
+" : $delete
+" : read !date
+" :endfunction
+" call it every time just before a buffer is written to a file:
+" :autocmd BufWritePre * call DateInsert() - * mathches to (every) filename
+" :autocmd [group] {events} {file_pattern} [nested] {command}
+" [group] is optional
+" {events} is a list of events (separated by comma) that trigger the command
+" {file_pattern} is a filename, ie. *.txt for all textfiles
+" [nested] is a flag, that allows nesting autocommands
+" {command} is the command to be executed
+" autocmd FileType tex inoremap wraum Wahrscheinlichkeitsraum - redefines
+" wraum in .tex files
+" BufReadPost is triggered after a new file is being edited
+" :autocmd BufNewFile *.[ch] 0read ~/skeletons/skel.c - inserts the contents
+" of skel.c in a new .c or .h file
+" you can also comma separate the {file_patterns} and use any file/directory
+" specification
+" :autocmd! FileWritePre * - !deletes all autocommands for FileWritePre that
+" uese the * pattern
+" autocmd [group] - lists all autocommands (of the specific group)
+" place autocommands in augroups by
+" :augroup MyGroup
+"  autocmd BufReadPost *.c,*.h :set sw=4 sts=4
+"  autocmd BufReadPost *.cpp :set sw=3 sts=3
+" :augroup EMD
+" autocmd! MyGroup - deletes all autocommands in MyGroup
+" NESTING: generally commands don't call new events, to do this use nested
+" :autocmd BufReadPost *.new execute "doautocmd BufReadPost "
+" .expand("<afile>:r") - autocommand that is triggered when editing a file
+" ending with .new
+" when editing the file "tryout.c.new" the executed command will be :doautocmd
+" BufReadPost tryout.c
+" the expand() takes <afile> argument which stands for the fikebane tha
+" autocommand was executed for nad takes the root with :r
+" :doautocmd executes in the current buffer; :doautoall executes on all
+" buffers
+" :autocmd BufReadPost *.log normal G - go to end of a log file in Normal mode
+" if you use i in normal mode you have also use <Esc> again to exit it
+" if you use "/" to start a search use <CR> to eecute it
+" the :normal command uses all the text after it as a command
+" :autocmd BufReadPost *.chg execute "normal ONew entry:\<Esc>" |
+" 	\ 1read !date -  use \ to break long lines in vum
+" 'eventignore' option holds autocommands that are ignored
 "
-" usr_40.2
+
+" usr_41
 
 
 
