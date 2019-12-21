@@ -1,3 +1,8 @@
+"call Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+call plug#end()
 "set nocompatible
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
@@ -47,7 +52,10 @@ set list"
 " ***********
 " some latex stuff
 augroup LatexStuff
-	autocmd! " remove previously defined autocommands, so they are not loaded multiply times
+	" remove previously defined autocommands, so they are not loaded
+	" multiply times (cannot be placed in the smae line sinde autocmd! is
+	" a vimscript command!
+	autocmd!
 	autocmd FileType tex inoremap dthm <Bslash>begin{thm}<CR><CR><Bslash>end{thm}<Up>
 	autocmd FileType tex inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
 	autocmd FileType tex inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
@@ -1859,7 +1867,58 @@ endfunction
 " :autocmd BufReadPost *.chg execute "normal ONew entry:\<Esc>" |
 " 	\ 1read !date -  use \ to break long lines in vum
 " 'eventignore' option holds autocommands that are ignored
-"
+" VimScript
+" :let i = 1
+" :while i < 5
+" :  echo "count is" i
+" :  let i += 1
+" :endwhile
+" outputs 5 times count is $i.
+" interrupt an (endless) loop by CTRL-C
+" :for i in range(1, 4)
+" :  echo "count is" i
+" :endfor
+" prints our 4 lines
+" 0x starts hexadecimal number
+" 0 starts an octal number
+" :echo 0x7f - 036 - substracting numbers of different format
+" use underscores in variables
+" s: is a prefix for a local variable, ie s:counter
+" see script-variable and internal-variables
+" b: local to buffer
+" w: local to a window
+" g: global variable
+" v: variable prefix by Vim
+" :unlet s:counter - deletes the local counter variable
+" use ! to get no error if variable does not exists
+" :if !exists("s:call_count")
+" :  let s:call_count = 0
+" :endif
+" :let s:call_count = s:call_count + 1
+" :echo "called" s:call_count "times"
+" use an old variable to count
+" note that the variable name passed to exists() must be in quotes
+" :let name = "\"peter\""
+" :echo name
+" echos peter in quotes
+" '\huhu' all is written as spelled
+" in "" you can use special commands:
+" \t		<Tab>
+" \n		<NL>, line break
+" \r		<CR>, <Enter>
+" \e		<Esc>
+" \b		<BS>, backspace
+" \"		"
+" \\		\, backslash
+" \<Esc>		<Esc>
+" \<C-W>		CTRL-W
+" note: you should use \t in programming languages and not hardcode tabs
+" see expr-quote
+" 
+" 41.3
+
+
+
 
 " usr_41
 
