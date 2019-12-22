@@ -2023,7 +2023,103 @@ endfunction
 " :echo alist + ['foo', 'bar'] - concatenaption of lists, you can also use the
 " extend function
 " note: add as a function has another effect than list concatenaption
-" FOR LOOP
+" :let alist = ['one', 'two', 'three']
+" :for n in alist
+" :  echo n
+" :endfor
+" iterate over a list
+" :for a in range(3)
+" :  echo a
+" :endfor
+" iterateover range
+" :for line in getline(1, 20)
+" :  if line =~ "Date: "
+" :    echo matchstr(line, 'Date: \zs.*')
+" :  endif
+" :endfor
+" looks at the first 20 lines and echoes any date found in there
+" :let uk2nl = {'one': 'een', 'two': 'twee', 'three': 'drie'}
+" :echo uk2nl['two']
+" a simple dictionary
+" dictionaries are not ordered (if you wnat that use lists)
+" :echo uk2nl['one'] - outputs een
+" :let uk2nl.four = 'vier' - extend the dictionary
+" you can also store a reference of a function in a dictiionary
+" :function uk2nl.translate(line) dict
+" :  return join(map(split(a:line), 'get(self, v:val, "?notfound_value?")'))
+" :endfunction
+" :echo uk2nl.translate('three two five one')
+" returns the values of the dictionary
+" dict at the end of :function marks this function to be used with a
+" dictionary
+" for more see list-identity and dit-identity and also Lists and Dictionaries
+" exceptions
+" :try
+" :   read ~/templates/pascal.tmpl
+" :catch /E484:/
+" :   echo "Sorry, the Pascal template file cannot be found."
+" :endtry
+" an exception is a string
+" :try
+" :   read ~/templates/pascal.tmpl
+" :catch
+" :   echo "Sorry, the Pascal template file cannot be found."
+" :endtry
+" catches all errors
+" :let tmp = tempname()
+" :try
+" :   exe ".,$write " . tmp
+" :   exe "!filter " . tmp
+" :   .,$delete
+" :   exe "$read " . tmp
+" :finally
+" :   call delete(tmp)
+" :endtry
+" call delete(tmp) is always executed even when the user presses CTRL-C
+" see exception-handling for more information
+" beware of the system differences between windows and unix see :source_crnl
+" In a vimscript file blank lines are allowed and ignored
+" :set cpoptions	=aABceFst - empty spacesare ignored
+" if you need whitespaces escape them with \ (backslash)
+" " starts a comment line in vimscript
+" wrong:
+" :abbrev dev development	" shorthand
+" :map <F3> o#include		" insert include
+" :execute cmd			" do it
+" :!ls *.c			" list C files
+" There can be no comment after :map :abbrev :execute and ! commands
+" if you need a comment in such a line seperte it with |
+" #!/usr/bin/env vim -S
+" echo "this is a Vim script"
+" quit 
+" special bash command for vimscript
+" :map ,ab o#include
+" :unmap ,ab 
+" here unmap doesn't work because of the ending whitespace
+" :unmap ,ab     " comment
+" here vim tries to unmap ,ab     
+" better use the following
+" :unmap ,ab|    " comment
+" :map ,p ma"aYHmbgg"aP`bzt`a
+" ma"aYHmbgg"aP`bzt`a
+" ma			set mark a at cursor position
+"   "aY			yank current line into register a
+"      Hmb		go to top line in window and set mark b there
+" 	gg		go to first line in file
+" 	  "aP		put the yanked line above it
+" 	     `b		go back to top line in display
+" 	       zt	position the text in the window as before
+" 		 `a	go back to saved cursor position
+" to avoid inteference with function names use a special abbrevation ie CM_
+" put the definitions of your funtions in a fila and set a global variable to
+" indicate that the functions have been loaded ie. CM_LOADED. When sourcing
+" the file again first unload the functions
+" 41.11
+" 
+
+
+"
+
 
 " 41.3
 
