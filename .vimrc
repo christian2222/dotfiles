@@ -2114,8 +2114,162 @@ endfunction
 " put the definitions of your funtions in a fila and set a global variable to
 " indicate that the functions have been loaded ie. CM_LOADED. When sourcing
 " the file again first unload the functions
-" 41.11
-" 
+" Writing plugins
+" two types of plugins:
+" global plugins - for all type of files
+" filetype plugins - only for files of a specific type
+" first lets look at global plugins
+" choose a good name for your plugin (limit name to 8 characters on old
+" windows systems)
+" we use a script that corrects typing errors called "typecorr.vim"
+" iabbrev teh the
+ " iabbrev otehr other
+ " iabbrev wnat want
+ " iabbrev synchronisation
+ " \ synchronization
+ " let s:count = 4
+ " put a header in your plugin, ie,
+ " Vim global plugin to correct typing errors
+ " last change: 2000 Oct 15
+ " Maintainer <name> <email>
+ " note also the liscense type
+ " save and restore current coptions:
+ " let s:save_cpo = &cpo
+ " set cpo&vim
+ " ...
+ " ...
+ " let &cpo = s:save_cpo
+ " unlet s:save_cpo
+ " note: s:var is a local script variable
+ " diasable loading of the plugin (if you've already loaded it):
+ " if exists("g:loaded:typecorr")
+ " 	finish
+ " endif
+ " let g:loaded_tapecorr = 1
+ " finish stops vim reading the rest of the file
+ " add some mappings (perhabs with the leaderkey involved)
+ " using "unique" parameter for mapping causes an error if the mapping already
+ " exists
+ " if !hasmapto('<Plug>TypecorrAdd')
+ " 	map <unique> <Leader>a <Plug>TypecorrAdd
+ " endif
+ " map ,c <Plug>TypecorrAdd - maps it to ,c
+ " function s:Add(from, correct) - defines a local function
+ " you can also use <SID> (that's better)
+ " noremenu <script> Plugin.Add\ Correction      <SID>Add - adds a menuentry
+ " in Plugin menu
+ " difference between <Plug> and <SID>:
+ " <Plug> is visible outside of a script, used for mappings which a user might
+ " want to map to a key sequence
+ " <SID> the script id, translated internally to <SNR>
+ " if !exists(":Correct")
+ "  command -nargs=1  Correct  :call s:Add(<q-args>, 0)
+ " endif
+ " only defined if its not yet defined
+ " variables starting with s: are script variables
+ " 1 " Vim global plugin for correcting typing mistakes
+" Last Change:	2000 Oct 15
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" License:	This file is placed in the public domain.
+"  if exists("g:loaded_typecorr")
+"  finish
+" endif
+" let g:loaded_typecorr = 1
+" let s:save_cpo = &cpo
+" set cpo&vim
+" iabbrev teh the
+" iabbrev otehr other
+" iabbrev wnat want
+" iabbrev synchronisation
+"  \ synchronization
+" let s:count = 4
+" if !hasmapto('<Plug>TypecorrAdd')
+"   map <unique> <Leader>a  <Plug>TypecorrAdd
+" endif
+" noremap <unique> <script> <Plug>TypecorrAdd  <SID>Add
+" noremenu <script> Plugin.Add\ Correction      <SID>Add
+" noremap <SID>Add  :call <SID>Add(expand("<cword>"), 1)<CR>
+" function s:Add(from, correct)
+"   let to = input("type the correction for " . a:from . ": ")
+"   exe ":iabbrev " . a:from . " " . to
+"   if a:correct | exe "normal viws\<C-R>\" \b\e" | endif
+"   let s:count = s:count + 1
+"   echo s:count . " corrections now"
+" endfunction
+"
+" if !exists(":Correct")
+"   command -nargs=1  Correct  :call s:Add(<q-args>, 0)
+" endif
+"
+" let &cpo = s:save_cpo
+" unlet s:save_cpo
+" line 33: applies the new correction to the word under the cursor
+" set option fileformat=unix to make scripts work on unix
+" wirte some documentation for your plugin
+" you can create a filetype detection snippet in a seperate file
+" ie:
+" au BufNewFile,BufRead *.foo		set filetype=foofoo
+" witre this as "ftdetect/foofoo.vim" under .vim-directory
+" Writing filetype Plugins
+" options and mapping are only vlid for the current buffer
+" put this at the begin of your plugin to be able to disable it:
+" Only do this when not done yet for this buffer
+" if exists("b:did_ftplugin")
+"   finish
+" endif
+" let b:did_ftplugin = 1
+" avoids also that the same plugin is loaded twice
+" users can disable th eplugin completely by
+" let b:did_ftplugin = 1
+" requires thath the filetype plugin directory comes before VIMRUNTIME in
+" 'runtimepath'!
+" ensure the filetypeplugin only affects the current buffer use :setlocal
+" when an option already exists use -= and += to keep existing values
+" first resetting to default value and then changing it is a good idea:
+" :setlocal formatoptions& formatoptions+=ro
+" use :map <buffer> to be sure that mappings only apply to current buffer
+" hasmapto is used to check if the user already defined a mapping
+" the user must have the option to disable the mappings of a filetypeplugin
+" without disabling everything:
+" Add mappings, unless the user didn't want this.
+" if !exists("no_plugin_maps") && !exists("no_mail_maps")
+"   " Quote text by inserting "> "
+"   if !hasmapto('<Plug>MailQuote')
+"     vmap <buffer> <LocalLeader>q <Plug>MailQuote
+"     nmap <buffer> <LocalLeader>q <Plug>MailQuote
+"   endif
+"   vnoremap <buffer> <Plug>MailQuote :s/^/> /<CR>
+"   nnoremap <buffer> <Plug>MailQuote :.,$s/^/> /<CR>
+" endif
+" global variables used are
+" no_plugin_maps - diabling mappings for all filetype plugins
+" no_mail_maps - disabling mappings for the "mail" filetype
+" add user command for specific filetype:
+" command -buffer Make make %:r.s
+" s:var script variable; b:var buffer variable
+" :if !exists("*s:Func")
+" :  function s:Func(arg)
+" :    ...
+" :  endfunction
+" :endif
+" the function is only defined once because the filetypeplugin is loaded
+" everytime you open the specific filetype
+" using :setfiletype xyz the previous filetype effects should be undone:
+" let b:undo_ftplugin = "setlocal fo< com< tw< commentstring<"
+"  \ . "| unlet b:match_ignorecase b:match_words b:match_skip"
+" setlocal with < after the option resetes the option to ist global value
+" (reset an optionvalue in this way!)
+" doesn't require removing the "C" flag from 'coptions' to allow line
+" continuapt-get install on as mentioned in use-cpo-save
+" filetype must be included in the filename of a ftplugin (ft = filetype)
+"
+" 41.13
+"
+
+
+
+ "
+
 
 
 "
