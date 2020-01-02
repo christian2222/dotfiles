@@ -2262,10 +2262,61 @@ endfunction
 " doesn't require removing the "C" flag from 'coptions' to allow line
 " continuapt-get install on as mentioned in use-cpo-save
 " filetype must be included in the filename of a ftplugin (ft = filetype)
+" use :compiler command to set 'errorformat' and 'makeprg' options
+" :next $VIMRUNTIME/compiler/*.vim - edit all default compiler plugins
+" use :next to got to the next plugin file
+" :if exists("current_compiler")
+" :  finish
+" :endif
+" :let current_compiler = "mine"
+" allows you to overrule of add to the default file; put a compiler file in
+" your personal runtime directory
+" use :set for :compiler! and :setlocal for :compiler
+" Vim defines the :CompilerSet user command for this
+" writing a compiler plugin, you overrule settings from a default plugin
+" quickloadplugin: basic idea is a two step process: first load user command
+" and mappings and second load functionality, but since Vim 7 there's an
+" alternapt-get install ve called autoload
+" " Vim global plugin for demonstrating quick loading
+" Last Change:	2005 Feb 25
+" " Maintainer:	Bram Moolenaar <Bram@vim.org>
+" " License:	This file is placed in the public domain.
 "
-" 41.13
+" if !exists("s:did_load")
+" 	command -nargs=* BNRead  call BufNetRead(<f-args>)
+" 	map <F19> :call BufNetWrite('something')<CR>
 "
-
+" 	let s:did_load = 1
+" 	exe 'au FuncUndefined BufNet* source ' . expand('<sfile>')
+" 	finish
+" endif
+"
+" function BufNetRead(...)
+" 	echo 'BufNetRead(' . string(a:000) . ')'
+" 	" read functionality here
+" endfunction
+"
+" function BufNetWrite(...)
+" 	echo 'BufNetWrite(' . string(a:000) . ')'
+" 	" write functionality here
+" endfunction
+" If the script is first loaded s:ddi_load is not set thus commands between if
+" and endif will be executed, ending in a finish command, discaarding the rest
+" of the file
+" second time the script is loaded commands after endif are executed; this
+" defines the (possible) long functions
+" drop this script in your plugin directory and the following will happen:
+" 1) BNRead command is defined, <F19> is mapped at startup; FuncUndefined as
+" autocommand is defined; finish causes to exit early
+" ") user calles BNRead ~> coressponding functions will be called
+" 3) Vim can't find the function and triggers the FuncUndefined autocommand
+" event. Hence source fname will be executed. fname will be the name of the
+" script
+" 4) script is sourced again and the functions are defined
+" an alternative is autolaod
+" The following is for mourse users only
+" 42
+" 
 
 
  "
@@ -2275,12 +2326,10 @@ endfunction
 "
 
 
-" 41.3
 
 
 
 
-" usr_41
 
 
 
