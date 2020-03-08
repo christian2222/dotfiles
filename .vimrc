@@ -2315,7 +2315,69 @@ endfunction
 " 4) script is sourced again and the functions are defined
 " an alternative is autolaod
 " The following is for mourse users only
+"
+"	if !exists('*MyLibFunction')
+"	   runtime library/mylibscript.vim
+"	endif
+"	call MyLibFunction(arg)
+" note that you need to fedine the right runtimepath - see runtimepath
+" an easier way is the following:
+" 	call mylib#myfunction(arg)
+" use names before your function to protect them from overriding
+" 	~/.vim/autoload/netlib/ftp.vim
+" where the function is defined like this: >
+"	function netlib#ftp#read(fname)
+"		"  Read the file fname through ftp
+"	endfunction
+" part before (last) # exactly matches the subdirectory and scriptname
+" you can also use this for variables:
+" 	let dutch#weekdays = ['zondag', 'maandag', 'dinsdag', 'woensdag',
+" 		\ 'donderdag', 'vrijdag', 'zaterdag']
+"see autoload
+" to pack vimscripts together see vimball
 " 42
+" to definde own menu commands use the :menu command
+" :menu File.Save :update<CR> - overrides the save command to write the file
+" when its modified
+" use Edit.Settings.Shiftwidth to define a new submenu item in the Edit menu
+" :menu is very similar to .map command the right side is used as if it were
+" typed in
+" §File.&Save are accelerators (alt-f and alt-s) but can be disabled
+" WARNING: use every accelerator only once, Vim doesn't warn you!
+" actual definition of the Save option in File menu:
+" 	:menu 10.340 &File.&Save<Tab>:w  :confirm w<CR>
+" the number (first one) defines the position in the menu bar, the second the
+" position in the actual menu
+" 	:menu 10.305 &File.&Do\ It\.\.\. :exit<CR>
+" you must escape some charaters to represent them in the menu
+" &File.&Save<Tab>:w" - :w is a hint
+" :amenu 20.510 Edit.-sep3- : - this is a seperator which is never executed
+" but needs a definition, so a : is enough
+" there are different types of menues like in the map command, that are
+" menu,nmenu,vmenu,omenu,menu!,imenu,cmenu and amenu
+" :amenu <silent> Mine.Next\ File :call <SID>NextFile()<CR> - silent supresses
+" the comment in the command line
+" :amenu Edit - lists only the Edit menu items for all modes
+" you can also delete menus with unmenu but it is not recommended
+" you can change the appearance of the menus, see guioptions
+" (you can use :menutrans for translations)
+" :amenu File.Open  :browse confirm edit<CR> - :browse opend the file browser;
+" confirm pops up a dialogue if the current buffer was changed
+" two speacial menus (ToolBar and PopUp) does not appear in the normal menu
+" bar
+" the toolbar only appears if the T flage is included in the guioptions
+" ToolBar.New causes New item to appear on the toolbar
+" the table of icons can be found in builtin-tools
+" 	:tmenu ToolBar.Compile  Compile the current file
+" if you need icons they are different on different system
+" tooltips can be defined and undefined with t(un)menu
+" you can also define the popup menu, but it's not interesting here...
+" 43
+"
+
+
+
+
 " 
 
 
