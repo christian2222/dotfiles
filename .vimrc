@@ -2373,7 +2373,88 @@ endfunction
 " tooltips can be defined and undefined with t(un)menu
 " you can also define the popup menu, but it's not interesting here...
 " 43
-"
+" filetype plugins; see add-filetyoe-plugin
+" see setlocal and softtabstop
+" filetype plugins are binded to the local buffer
+" see write-plugin
+" to recognize (unknown) filetypes you need an own directory, see
+" your-runtime-dir
+" create a file "filetype.vim" which contains autocommands for your filetype
+" setf command
+" see autocmd-patterns
+" 	augroup filetypedetect
+"	au BufNewFile,BufRead *.txt			setf text
+"	augroup END
+" sets new filetype text
+" see runtimepath
+" recognize filetypes by content:
+" 	if did_filetype()
+"	  finish
+"	endif
+"	if getline(1) =~ '^#!.*[/\\]xyz\>'
+"	  setf xyz
+"	endif
+" first avoid to check already known filetypes
+" order of checks:
+" 	1. filetype.vim files before $VIMRUNTIME in 'runtimepath'
+"	2. first part of $VIMRUNTIME/filetype.vim
+"	3. all scripts.vim files in 'runtimepath'
+"	4. remainder of $VIMRUNTIME/filetype.vim
+"	5. filetype.vim files after $VIMRUNTIME in 'runtimepath'
+" 44
+" syntax highlighting, see :syn-define
+" using an existing syntax file to start with saves a lot of time, see
+" $VIMRUNTIME/syntax for examples
+" :syntax clear - clears all old definitions (not required in final syntax
+" file but good for experiments)
+" :syntax - checks which syntax items are currently defined
+" :syntax case match/ignore - make syntax case (in)sensitive
+" 	:syntax keyword {group} {keyword} ...
+" group is the name of the syntax group; examples:
+" 	:syntax keyword xType int long char
+" 	:syntax keyword xStatement if then else endif
+" define the x-language (example). In a syntax file for csh use cshType
+" instead
+" the prefix is equal to the value of filetype
+" you need now connect the x group names to standard Vim names by:
+" 	:highlight link xType Type
+"	:highlight link xStatement Statement
+" see group-name for the standard names
+" characters used in keywords must be in the iskeyword option, otherwise the
+" word would not match and Vim does not warn you!
+" 	:setlocal iskeyword+=-
+" 	:syntax keyword xStatement when-not
+" defines the when-not as a language keyword (also remind of setlocal to the
+" current buffer)
+" :syntax keyword xStatement n[ext] - allows abbreviations like n,ne and nex
+" 	:syntax match xIdentifier /\<\l\+\>/ - matches any word only
+" consisting of lowercase letters
+" Note: keywords overrule other syntax items, hence we have if and then as
+" keywords as defined above
+" 	:syntax match xComment /#.*/ - comments starts with # til end of line
+" see pattern for help on patterns
+" 	:syntax region xString start=/"/ end=/"/ - matches a quoted string
+" 	:syntax region xString start=/"/ skip=/\\"/ end=/"/ - skips also
+" escaped double quotes in the string
+" a match is a single pattern which must match as a whole
+" when the item depends on the end pattern to match you cannot use a region
+" 	:syntax keyword xTodo TODO contained
+"	:syntax match xComment /%.*/ contains=xTodo
+" first line tells Vim can exist only in another syntax item
+" the next line has contains=xTodo in it indicating that the xTodo syntax
+" element is inside it
+" ~> the comment line as a whole is matches by xComment and made blue
+" the word TODO inside of it is matched by xTodo and highlighted yellow
+" (highlighting for xTodo was setup for this)
+" 	:syntax region xBlock start=/{/ end=/}/ contains=xBlock - defines
+" blocks in curly braces
+" !begin at KEEPING THE END
+
+
+
+
+
+
 
 
 
