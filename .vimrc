@@ -2448,7 +2448,102 @@ endfunction
 " (highlighting for xTodo was setup for this)
 " 	:syntax region xBlock start=/{/ end=/}/ contains=xBlock - defines
 " blocks in curly braces
-" !begin at KEEPING THE END
+" 	:syntax region xComment start=/%/ end=/$/ contained
+"	:syntax region xPreProc start=/#/ end=/$/ contains=xComment
+" with the following code:
+" 	#define X = Y  % Comment text ~
+" 	int foo = 1;
+" with end=/$/ the preprocessor directive should end at the end of the line
+" but after thencomment ends the preprocessor directive continues
+" to avoid this use the keepend argument:
+" 	:syntax region xComment start=/%/ end=/$/ contained
+" 	:syntax region xPreProc start=/#/ end=/$/ contains=xComment keepend
+" 	:syntax region xList start=/\[/ end=/\]/ contains=ALL - causes an
+" endless loop, since the irem contains itself
+" :syntax region xList start=/\[/ end=/\]/ contains=ALLBUT,xString - includes
+" all items and don't have a contained argument. contained is used only to
+" include items with a contained agrument, see :syn-contains
+" look at the code snipet: if (condition) then 
+" 	:syntax match xIf /if/ nextgroup=xIfCondition skipwhite
+" 	:syntax match xIfCondition /([^)]*)/ contained nextgroup=xThen skipwhite
+" 	:syntax match xThen /then/ contained
+" nextgroup arguemnt specifies which item can come next (not required)
+" in [if not (condition) then] only if is highlighted since not doesn't match
+" the nextgroup
+" you can also use skipwhile to skipt whitespaces or skipnl or skipempty to
+" skip new and empty lines
+" :syntax region xInside start=/(/ end=/)/ - highlights everything inside ()
+" :syntax region xInside matchgroup=xParen start=/(/ end=/)/ - highlights
+" start and end with a different highlight group
+" :syntax region xInside matchgroup=xParen start=/(/
+"		\ matchgroup=xParenEnd end=/)/
+" side effect of matchgroup is that contained items will not match in start or
+" end of a region, see transparent for an example
+" highlight a for() diffenrently than while():
+" 	:syntax region cWhile matchgroup=cWhile start=/while\s*(/ end=/)/
+" 		\ contains=cCondNest
+" 	:syntax region cFor matchgroup=cFor start=/for\s*(/ end=/)/
+" 		\ contains=cCondNest
+" 	:syntax region cCondNest start=/(/ end=/)/ contained transparent
+" now you can give cWhile and cFor different highlighting cCondNest can appear
+" in either of them but takes overe the highlighting of the item it is
+" contained in (transparent argument causes this)
+" Notice: side effect of a matchgroup: contained items are not found in the
+" match with the start item ~> avoids that cCondNest group matches the ( just
+" after the while of for
+" :syntax region xCond start=/if\s*(/ms=e+1 end=/)/me=s-1 - offset for the
+" start pattern is ms=e+1. ms = match start. e+1 match starts at the end of
+" the pattern match and then one character back
+" thus in if (foo == bar) only foo == bar is highlighted as xCond; see
+" :syn-pattern-offset
+" :syntax region xIfThen start=/if/ end=/then/ oneline - match only in one
+" line
+" 	:syntax region xPreProc start=/^#/ end=/$/ contains=xLineContinue
+" 	:syntax match xLineContinue "\\$" contained
+" # starts the preprocessor line and \ allows for line continuation
+" this matches the code example:
+" 	#define SPAM  spam spam spam \
+" 			bacon and spam
+" to avoid making the xPreProc continue on the next line use excludenl:
+" 	:syntax region xPreProc start=/^#/ end=/$/
+" 		\ contains=xLineContinue,xPreProcEnd
+" 	:syntax match xPreProcEnd excludenl /end$/ contained
+" 	:syntax match xLineContinue "\\$" contained
+" note: excludenl is placed before the pattern
+" a collection of syntax groups is called a cluster
+" suppose a language with for/while loops, if statements and functions. Each
+" of them contains the same syntax elements: numbers and identifiers:
+" 	:syntax match xFor /^for.*/ contains=xNumber,xIdent
+" 	:syntax match xIf /^if.*/ contains=xNumber,xIdent
+" 	:syntax match xWhile /^while.*/ contains=xNumber,xIdent
+" need to use contains= very often
+" to define a cluster use:
+" :syntax cluster xState contains=xNumber,xIdent - clusters are used like
+" syntax groups, their names start with @
+" 	:syntax match xFor /^for.*/ contains=@xState
+" 	:syntax match xIf /^if.*/ contains=@xState
+" 	:syntax match xWhile /^while.*/ contains=@xState
+" :syntax cluster xState add=xString - adds new group names to the cluster
+" :syntax cluster xState remove=xNumber - removes a syntax group
+" :runtime! syntax/c.vim - reads in C language definition for C++ syntax
+" :syntax keyword cppStatement	new delete this friend using - adds C++ syntax
+" you can also use Pearl...
+" :syntax sync ccomment - scans back from editing point to a C-style comment
+" :syntax sync ccomment minlines=10 maxlines=500 - minlines backward, maxlines
+" maximum number of lines to scan
+" :syntax sync minlines=150 - go back 150 lines and start parsing from there
+" for more about synchronization see :syn-sync
+" for our x language the file would look like ~/.vim/syntax/x.vim ~
+" you must also make the file type be recognized see 43.2
+" for portable syntax file layout there are some guidelines
+" 45
+" 
+
+
+
+
+
+
 
 
 
