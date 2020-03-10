@@ -2537,7 +2537,27 @@ endfunction
 " you must also make the file type be recognized see 43.2
 " for portable syntax file layout there are some guidelines
 " 45
-" 
+" :language - see the current language
+" :version - must output +gettext and +multi_lang for using different
+" languages
+" env LANG=de_DE.ISO_8859-1  vim - only works if the language is availible on
+" your system
+" :language fr_FR.ISO_8859-1 - change language inside Vim
+" if translated messages are not availible Vim will fall back to English
+" see :language
+" you can also do the translation by yourself
+" :set langmenu=nl_NL.ISO_8859-1 - change language of the menu; see langmenu
+" once the menus are defined the langmenu has no effect, so you have to
+" resource:
+" 	:source $VIMRUNTIME/delmenu.vim
+" 	:set langmenu=de_DE.ISO_8859-1
+" 	:source $VIMRUNTIME/menu.vim
+" drawback: user defined menus are gone, you'll need to redefine them
+" in $VIMRUNTIME/lang/menu_{language}.vim - is a menu translation file, you
+" can copy and modify it for your own needs
+" you can also use other encoding for your files, standard is latin1
+" see :language which has to contain multi_byte for different encodings
+" start: USING UNICODE IN THE GUI
 
 
 
