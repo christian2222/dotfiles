@@ -2558,7 +2558,38 @@ endfunction
 " you can also use other encoding for your files, standard is latin1
 " see :language which has to contain multi_byte for different encodings
 " start: USING UNICODE IN THE GUI
-
+" setting unicode in gui-Vim:
+" 	:set encoding=utf-8
+" 	:set guifont=-misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
+" encoding are the settings for the internals of Vim
+" in windows it is more complicated
+" 	:let &termencoding = &encoding
+" 	:set encoding=utf-8
+" This assigns the old value of 'encoding' to 'termencoding' before setting
+" encoding' to utf-8
+"  xterm -u8 -fn -misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1 -
+" you can also start an xterm with unicode (if compiled)
+" you can also use unicdoe in an ordinary terminal but thats somehow
+" complicated
+" beware of setting encoding differently because of registers etc.
+" you can also edit files with different encodings, standard is
+" fileencodings=ucs-bom,utf-8,latin1 - ucs-bom are file internals, utf-8
+" encoding and latin1 is 8bit encoding taht always works
+" see encoding-values
+" :edit ++enc=koi8-r russian.txt
+" :write ++enc=utf-8 russian.txt
+" convert the encoding of the file russian.txt
+" note: conversion may result in lost characters
+" to enter more characters (ie. Unicode) you can use digraphs (see 24.9)
+" when you use more characters use an Input Method like mbyte-XIM for X Window
+" systems or mbyte-IME for MS-Windows
+" :set keymap=hebrew - type in Hebrew
+" in input mode you are now in hebrew, however in command mode you switch back
+" to English
+" you can create your own keymap file see mbyte-keymap
+" if you want to enter a special char see i_CTRL-V_digit for details
+" 90
+"
 
 
 
