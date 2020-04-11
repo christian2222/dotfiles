@@ -76,20 +76,53 @@ augroup LatexStuff
 	autocmd FileType tex inoremap jinfty \bigcup_{j=1}^\infty
 	autocmd FileType tex inoremap janfty \bigcap_{j=1}^\infty
 	autocmd FileType tex inoremap NN \mathbb{N}
-	autocmd FileType tex inoremap EW \mathbb{E}[]<left>
-	autocmd FileType tex inoremap PR \mathbb{P}()<left>
+	autocmd FileType tex inoremap EW \E{}<left>
+	autocmd FileType tex inoremap PR \Pr{}<left>
+	autocmd FileType tex inoremap ZV Zufallsvariable
+	autocmd FileType tex inoremap WK Wahrscheinnlichkeit
 	autocmd FileType tex inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
+	autocmd FileType tex inoremap * \cdot
+	autocmd FileType tex inoremap .. \ldots
+	autocmd FileType tex inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
+	" some other shortcuts
+	autocmd FileType tex inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
 augroup end
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
 inoremap <C-l> <Esc>:wq<cr>
-inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
-" some other shortcuts
-inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
 " inoremap <esc> <nop> " force yourself to use jk 
 " some bash shortcuts
-inoremap ati apt-get install<Space>
+" Skripting Stuff
+augroup SkriptStuff
+	autocmd!
+	autocmd FileType sh inoremap ati apt-get install<Space>
+	autocmd FileType sh inoremap SHE #!/bin/bash
+augroup end
+
+augroup PhpStuff
+	autocmd!
+	autocmd FileType php inoremap vd var_dump($);<Left><Left>
+	autocmd FileType php inoremap PHP <?php<cr><cr>*><Up>
+	autocmd FileType php inoremap pfn public function
+	autocmd FileType php inoremap est echo '';<Left><Left>
+	autocmd FileType php inoremap dd $
+	autocmd FileType php inoremap this $this
+	autocmd FileType php inoremap - ->
+	autocmd FileType php inoremap ebr echo '<br>';
+	autocmd FileType php inoremap ehl echo '<br><hl><br>';
+	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
+augroup end
+
+augroup HtmlStuff
+	autocmd!
+	autocmd FileType html inoremap Html <html><head></head><body></body></html>
+augroup end
+
+" fasten editing .vimrc
+cnoremap rc e ~/.vimrc
+" reload on command line
+cnoremap reload source ~/.vimrc
 inoremap jk <esc>
 " other ways to exit than <esc>: <c-c> and <c-]>
 " inoremap <M-l> <Esc>:wq<cr>
@@ -184,6 +217,9 @@ onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 " => delete the last heading including the underlined line ==\+
 onoremap ah :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rg_vk0"<cr>
 
+" unbind ... to dots by Latexsuite (needs to be sourced after latex suite)
+" call IMAP('`...', '\ldots', 'tex') - needs to be called in
+" .vim/after/ftplugin/tex_macros.vim
 " Statusline
 " **********
 " set statusline=%f         " Path to the file
@@ -537,7 +573,7 @@ endfunction
 " store functions in variables
 let MyFunc = function("Append")
 let funcs = [function("Append"), function("Pop")]
-echo funcs[1](['a', 'b', 'c'], 1)
+" echo funcs[1](['a', 'b', 'c'], 1)
 " higher-order functions take functions and do something with them
 " fn is called funcref in vim
 function! Mapped(fn, l)
