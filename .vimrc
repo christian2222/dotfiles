@@ -42,7 +42,7 @@ set list"
 " make vim and tmux work together
 " set term=xterm-256color
 " if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
+" tmux will send xterm-style keys when its xterm-keys option is on
 "     execute "set <xUp>=\e[1;*A"
 "     execute "set <xDown>=\e[1;*B"
 "     execute "set <xRight>=\e[1;*C"
@@ -69,8 +69,8 @@ augroup LatexStuff
 	autocmd FileType tex inoremap mraum Ma<bslash>ss raum
 	autocmd FileType tex inoremap djoin <bslash>uplus
 	autocmd FileType tex inoremap sohne <bslash>setminus
-" see :help keycodes 
-" for more information about keystroke-coding
+	" see :help keycodes 
+	" for more information about keystroke-coding
 	autocmd FileType tex inoremap binfty \bigcup_{i=1}^\infty
 	autocmd FileType tex inoremap banfty \bigcap_{i=1}^\infty
 	autocmd FileType tex inoremap jinfty \bigcup_{j=1}^\infty
@@ -86,6 +86,7 @@ augroup LatexStuff
 	autocmd FileType tex inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
 	" some other shortcuts
 	autocmd FileType tex inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
+
 augroup end
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
@@ -103,20 +104,24 @@ augroup end
 augroup PhpStuff
 	autocmd!
 	autocmd FileType php inoremap vd var_dump($);<Left><Left>
-	autocmd FileType php inoremap PHP <?php<cr><cr>*><Up>
-	autocmd FileType php inoremap pfn public function
-	autocmd FileType php inoremap est echo '';<Left><Left>
+	autocmd FileType php inoremap PHP <?php<cr><cr>?><Up>
+	" note: after <Esc> reenter insert mode with A not with <A>!
+	autocmd FileType php inoremap ifn private function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap ofn protected function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap pfn public function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap Est echo '';<Left><Left>
 	autocmd FileType php inoremap dd $
 	autocmd FileType php inoremap this $this
-	autocmd FileType php inoremap - ->
+	autocmd FileType php inoremap -- ->
 	autocmd FileType php inoremap ebr echo '<br>';
 	autocmd FileType php inoremap ehl echo '<br><hl><br>';
 	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
+	autocmd FileType php inoremap Test /**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Left><Left><Left><Left>
 augroup end
 
 augroup HtmlStuff
 	autocmd!
-	autocmd FileType html inoremap Html <html><head></head><body></body></html>
+	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
 augroup end
 
 " fasten editing .vimrc
@@ -260,16 +265,16 @@ onoremap ah :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rg_vk0"<cr>
 " :call Huhu() - calls the function; functions must! start with a capital
 " letter
 function Huhu()
-  echo "Hallo Christian"
+	echo "Hallo Christian"
 endfunction
 " :echo ReturnMe() - prints the return value
 function ReturnMe()
-  return "Einne schönen guten Tag!"
+	return "Einne schönen guten Tag!"
 endfunction
 " remind call thorws away the return value, so the correct usage is
 function Use()
-  call Huhu()
-  echo ReturnMe()
+	call Huhu()
+	echo ReturnMe()
 endfunction
 " ! - override the function (needed if you replace something)
 function! DisplayName(name)
@@ -291,46 +296,46 @@ function! MuchArgs(foo,...)
 	echo a:000
 endfunction
 function! Numbers()
-" digital system
+	" digital system
 	echo 100 	
-" hexadecimal system
+	" hexadecimal system
 	echo 0xbeef
-" starting with 0 means octal!-system
+	" starting with 0 means octal!-system
 	echo 057
-" expect it's not octal at all
+	" expect it's not octal at all
 	echo 099 
-" floats
+	" floats
 	echo 100.5
 	echo 5.45e+3
 	echo 7893.45e-2
 	echo 5.4547463e2
 	echo 2/3
 	echo 2/3.0
-" Strings
+	" Strings
 	echo "2 Hello "+"3 world!"
 	echo 10 + "10.10"
 	echo "Hello " . "world!"
 	echo 10 . "foo"
 	" echo 10.1 . "foo"  - throws an error since vim != Javascript
 	" to translate between different types use functions!
-" special chars
+	" special chars
 	echo "Hello \\ \n \"World\""
 	" ' tells vim to take the string as it is without escape sequences
 	" called literal string
 	echo '\n\\'
 	" only existing escape sequence is ''
 	echo 'Thats''s enough.'
-" string-lengths
+	" string-lengths
 	echo strlen("hello")
 	echo len("hello")
-" splits
+	" splits
 	echo split(" one two three")
 	echo split("one, two, three", ",")
-" joining
+	" joining
 	echo join(["Hello","World"],"...")
-" combine
+	" combine
 	echo join(split("Hello Wolrd"),"-")
-" lower and upper case
+	" lower and upper case
 	echo tolower("HelLO")
 	echo toupper("wOrLd")
 endfunction
@@ -421,23 +426,23 @@ function! ListExample()
 endfunction
 
 function! Loops()
-let c = 0
+	let c = 0
 
-for i in [1, 2, 3, 4]
-  let c += i
-endfor
+	for i in [1, 2, 3, 4]
+		let c += i
+	endfor
 
-echo c
+	echo c
 
-let c = 1
-let total = 0
-" no equivalent for loops like for (int i = 0; i < foo; i++)
-while c <= 4
-  let total += c
-  let c += 1
-endwhile
+	let c = 1
+	let total = 0
+	" no equivalent for loops like for (int i = 0; i < foo; i++)
+	while c <= 4
+		let total += c
+		let c += 1
+	endwhile
 
-echo total
+	echo total
 
 endfunction
 
@@ -488,11 +493,11 @@ nnoremap <leader>N :setlocal number!<cr>
 nnoremap <leader>f :call FoldColumnToggle()<cr>
 
 function! FoldColumnToggle()
-    if &foldcolumn
-        setlocal foldcolumn=0
-    else
-        setlocal foldcolumn=4
-    endif
+	if &foldcolumn
+		setlocal foldcolumn=0
+	else
+		setlocal foldcolumn=4
+	endif
 endfunction
 
 " toggle the quickfic-window
@@ -501,17 +506,17 @@ nnoremap <leader>q :call QuickfixToggle()<cr>
 let g:quickfix_is_open = 0
 
 function! QuickfixToggle()
-    if g:quickfix_is_open
-        cclose
-        let g:quickfix_is_open = 0
-        execute g:quickfix_return_to_window . "wincmd w"
-	" see :help wincmd
-    else
-        let g:quickfix_return_to_window = winnr()
-	" see help winnr
-        copen
-        let g:quickfix_is_open = 1
-    endif
+	if g:quickfix_is_open
+		cclose
+		let g:quickfix_is_open = 0
+		execute g:quickfix_return_to_window . "wincmd w"
+		" see :help wincmd
+	else
+		let g:quickfix_return_to_window = winnr()
+		" see help winnr
+		copen
+		let g:quickfix_is_open = 1
+	endif
 endfunction
 " Getting something that works most of the time (and doesn't explode when it doesn't work) and getting back to coding is usually better than spending hours getting it 100% perfect. The exception is when you're writing a plugin you expect many people to use. In that case it's best to spend the time and make it bulletproof to keep your users happy and reduce bug reports.
 " Paths
@@ -538,37 +543,37 @@ endfunction
 " functional vim
 " **************
 function! Sorted(l)
-let new_list = deepcopy(a:l)
-call sort(new_list)
-return new_list
+	let new_list = deepcopy(a:l)
+	call sort(new_list)
+	return new_list
 endfunction
 
 function! TestIt()
-echo Sorted([3,2,4,1])
+	echo Sorted([3,2,4,1])
 endfunction
 
 function! Reversed(l)
-let new_list = deepcopy(a:l)
-call reverse(new_list)
-return new_list
+	let new_list = deepcopy(a:l)
+	call reverse(new_list)
+	return new_list
 endfunction
 
 function! Append(l, val)
-let new_list = deepcopy(a:l)
-call add(new_list, a:val)
-return new_list
+	let new_list = deepcopy(a:l)
+	call add(new_list, a:val)
+	return new_list
 endfunction
 " replace element in list
 function! Assoc(l, i, val)
-let new_list = deepcopy(a:l)
-let new_list[a:i] = a:val
-return new_list
+	let new_list = deepcopy(a:l)
+	let new_list[a:i] = a:val
+	return new_list
 endfunction
 " return and remove element at index i
 function! Pop(l, i)
-let new_list = deepcopy(a:l)
-call remove(new_list, a:i)
-return new_list
+	let new_list = deepcopy(a:l)
+	call remove(new_list, a:i)
+	return new_list
 endfunction
 " store functions in variables
 let MyFunc = function("Append")
@@ -577,36 +582,36 @@ let funcs = [function("Append"), function("Pop")]
 " higher-order functions take functions and do something with them
 " fn is called funcref in vim
 function! Mapped(fn, l)
-let new_list = deepcopy(a:l)
-"          <list>,  function!-string, at what
-call map(new_list, string(a:fn) . '(v:val)')
-return new_list
+	let new_list = deepcopy(a:l)
+	"          <list>,  function!-string, at what
+	call map(new_list, string(a:fn) . '(v:val)')
+	return new_list
 endfunction
 " Example: 
 " call map(mylist, '"> " . v:val . " <"')
 " This puts "> " before and " <" after each item in "mylist".
 function! Filtered(fn, l)
-let new_list = deepcopy(a:l)
-" usse the "command" function(value)
-call filter(new_list, string(a:fn) . '(v:val)')
-return new_list
+	let new_list = deepcopy(a:l)
+	" usse the "command" function(value)
+	call filter(new_list, string(a:fn) . '(v:val)')
+	return new_list
 endfunction
 
 function! Removed(fn, l)
-let new_list = deepcopy(a:l)
-" ! negates the result
-call filter(new_list, '!' . string(a:fn) . '(v:val)')
-return new_list
+	let new_list = deepcopy(a:l)
+	" ! negates the result
+	call filter(new_list, '!' . string(a:fn) . '(v:val)')
+	return new_list
 endfunction
 
 
 function! TestMappedAndFilter()
-let mylist = [[1, 2], [3, 4]]
-echo Mapped(function("Reversed"), mylist)
-let mylist = [[1, 2], [], ['foo'], []]
-echo Filtered(function('len'), mylist)
-let mylist = [[1, 2], [], ['foo'], []]
-echo Removed(function('len'), mylist)
+	let mylist = [[1, 2], [3, 4]]
+	echo Mapped(function("Reversed"), mylist)
+	let mylist = [[1, 2], [], ['foo'], []]
+	echo Filtered(function('len'), mylist)
+	let mylist = [[1, 2], [], ['foo'], []]
+	echo Removed(function('len'), mylist)
 endfunction
 
 
@@ -652,9 +657,9 @@ endfunction
 " ^ - move to first non-blank character of line
 " 0 - move to the very first character of a line
 " excercise: find out the difference between ^ and 0
-      " in this example " 3$ does not make sence but works 
-      " " 0 takes no count because 0 is 0 
-      " " 3^ has no effect on ^
+" in this example " 3$ does not make sence but works 
+" " 0 takes no count because 0 is 0 
+" " 3^ has no effect on ^
 " fx - searches foward to next character x (try it in this line with 2s)
 " Fx - searches the line backwards for x (try it here with 3Fe)
 " tx - like fx, but stops before the character; t stands for "to"
@@ -2159,51 +2164,51 @@ endfunction
 " windows systems)
 " we use a script that corrects typing errors called "typecorr.vim"
 " iabbrev teh the
- " iabbrev otehr other
- " iabbrev wnat want
- " iabbrev synchronisation
- " \ synchronization
- " let s:count = 4
- " put a header in your plugin, ie,
- " Vim global plugin to correct typing errors
- " last change: 2000 Oct 15
- " Maintainer <name> <email>
- " note also the liscense type
- " save and restore current coptions:
- " let s:save_cpo = &cpo
- " set cpo&vim
- " ...
- " ...
- " let &cpo = s:save_cpo
- " unlet s:save_cpo
- " note: s:var is a local script variable
- " diasable loading of the plugin (if you've already loaded it):
- " if exists("g:loaded:typecorr")
- " 	finish
- " endif
- " let g:loaded_tapecorr = 1
- " finish stops vim reading the rest of the file
- " add some mappings (perhabs with the leaderkey involved)
- " using "unique" parameter for mapping causes an error if the mapping already
- " exists
- " if !hasmapto('<Plug>TypecorrAdd')
- " 	map <unique> <Leader>a <Plug>TypecorrAdd
- " endif
- " map ,c <Plug>TypecorrAdd - maps it to ,c
- " function s:Add(from, correct) - defines a local function
- " you can also use <SID> (that's better)
- " noremenu <script> Plugin.Add\ Correction      <SID>Add - adds a menuentry
- " in Plugin menu
- " difference between <Plug> and <SID>:
- " <Plug> is visible outside of a script, used for mappings which a user might
- " want to map to a key sequence
- " <SID> the script id, translated internally to <SNR>
- " if !exists(":Correct")
- "  command -nargs=1  Correct  :call s:Add(<q-args>, 0)
- " endif
- " only defined if its not yet defined
- " variables starting with s: are script variables
- " 1 " Vim global plugin for correcting typing mistakes
+" iabbrev otehr other
+" iabbrev wnat want
+" iabbrev synchronisation
+" \ synchronization
+" let s:count = 4
+" put a header in your plugin, ie,
+" Vim global plugin to correct typing errors
+" last change: 2000 Oct 15
+" Maintainer <name> <email>
+" note also the liscense type
+" save and restore current coptions:
+" let s:save_cpo = &cpo
+" set cpo&vim
+" ...
+" ...
+" let &cpo = s:save_cpo
+" unlet s:save_cpo
+" note: s:var is a local script variable
+" diasable loading of the plugin (if you've already loaded it):
+" if exists("g:loaded:typecorr")
+" 	finish
+" endif
+" let g:loaded_tapecorr = 1
+" finish stops vim reading the rest of the file
+" add some mappings (perhabs with the leaderkey involved)
+" using "unique" parameter for mapping causes an error if the mapping already
+" exists
+" if !hasmapto('<Plug>TypecorrAdd')
+" 	map <unique> <Leader>a <Plug>TypecorrAdd
+" endif
+" map ,c <Plug>TypecorrAdd - maps it to ,c
+" function s:Add(from, correct) - defines a local function
+" you can also use <SID> (that's better)
+" noremenu <script> Plugin.Add\ Correction      <SID>Add - adds a menuentry
+" in Plugin menu
+" difference between <Plug> and <SID>:
+" <Plug> is visible outside of a script, used for mappings which a user might
+" want to map to a key sequence
+" <SID> the script id, translated internally to <SNR>
+" if !exists(":Correct")
+"  command -nargs=1  Correct  :call s:Add(<q-args>, 0)
+" endif
+" only defined if its not yet defined
+" variables starting with s: are script variables
+" 1 " Vim global plugin for correcting typing mistakes
 " Last Change:	2000 Oct 15
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
 " License:	This file is placed in the public domain.
@@ -2644,7 +2649,7 @@ endfunction
 " 
 
 
- "
+"
 
 
 
