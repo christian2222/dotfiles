@@ -83,6 +83,9 @@ augroup LatexStuff
 	autocmd FileType tex inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
 	autocmd FileType tex inoremap * \cdot
 	autocmd FileType tex inoremap .. \ldots
+	autocmd FileType tex inoremap frc <Bslash>frac{}{}<Left><Left><Left>
+	autocmd FileType tex inoremap 1/ <Bslash>frac{1}{}<Left>
+	autocmd FileType tex inoremap eps \epsilon
 	autocmd FileType tex inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
 	" some other shortcuts
 	autocmd FileType tex inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
@@ -116,7 +119,7 @@ augroup PhpStuff
 	autocmd FileType php inoremap ebr echo '<br>';
 	autocmd FileType php inoremap ehl echo '<br><hl><br>';
 	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
-	autocmd FileType php inoremap Test /**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap Test <Tab>/**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Left><Left><Left><Left>
 augroup end
 
 augroup HtmlStuff
