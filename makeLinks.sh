@@ -3,3 +3,4 @@
 ln -sr .vimrc ~/.vimrc
 ln -sr .vrapperrc ~/.vrapperrc
 ln -sr .emacs ~/.emacs
+ln -sr .bash_aliases ~/.bash_aliases

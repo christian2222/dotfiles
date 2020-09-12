@@ -82,15 +82,25 @@ augroup LatexStuff
 	autocmd FileType tex inoremap ZV Zufallsvariable
 	autocmd FileType tex inoremap WK Wahrscheinnlichkeit
 	autocmd FileType tex inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
-	autocmd FileType tex inoremap * \cdot
-	autocmd FileType tex inoremap .. \ldots
+	autocmd FileType tex inoremap * \cdot 
+	autocmd FileType tex inoremap .. \ldots 
 	autocmd FileType tex inoremap frc <Bslash>frac{}{}<Left><Left><Left>
 	autocmd FileType tex inoremap 1/ <Bslash>frac{1}{}<Left>
 	autocmd FileType tex inoremap eps \epsilon
 	autocmd FileType tex inoremap eqn <Bslash>begin{eqnarray*}<CR><CR><Bslash>end{eqnarray*}<Up>
 	" some other shortcuts
 	autocmd FileType tex inoremap FR <Bslash>begin{flushright}<cr><cr><Bslash>end{flushright}<Up>
-
+	autocmd FileType tex inoremap Frame \begin{frame}<CR>\frametitle{<++>}<CR><++><CR>\end{frame}<Up><Up><Up><C-j>
+	autocmd FileType tex inoremap Box \mbox{<Space><Space><Space>}<left><left><left>
+	autocmd FileType tex inoremap stc \stackrel{}{<++>}<++><left><left><left><left><left><left><left><left><left><left><left>
+	" Note: Ctrl-i stirke here
+	autocmd FileType tex inoremap <C-i> <Esc>i {\em <Esc>ww<left>i}<Esc>i<right><right>
+	" compilation shorcuts from normal mode
+	autocmd FileType tex noremap <C-c> <Bslash>ll<CR>
+	autocmd FileType tex noremap <C-v> <Bslash>lv<CR>
+	" make commands also availible from input mode
+	autocmd FileType tex inoremap <C-c> <Esc><Bslash>ll<CR>i<Right>
+	autocmd FileType tex inoremap <C-v> <Esc><Bslash>lv<CR>i<Right>
 augroup end
 " get rid of 5 keystrokes and replace them with <C-s>
 inoremap <C-s> <esc>:w!<cr>a
@@ -121,6 +131,8 @@ augroup PhpStuff
 	autocmd FileType php inoremap ehl echo '<br><hl><br>';
 	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
 	autocmd FileType php inoremap Test <Tab>/**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap PAR @param 
+	autocmd FileType php inoremap RET @return 
 augroup end
 
 augroup HtmlStuff
