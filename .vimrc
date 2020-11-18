@@ -1,8 +1,9 @@
 "call Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'artur-shaik/vim-javacomplete2'
+Plug 'mattn/emmet-vim'
 call plug#end()
 "set nocompatible
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -138,6 +139,7 @@ augroup end
 augroup HtmlStuff
 	autocmd!
 	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
+	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Left><Left>
 augroup end
 
 
