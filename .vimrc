@@ -5,6 +5,7 @@ Plug 'preservim/nerdtree'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'mattn/emmet-vim'
 call plug#end()
+" ImPORTANT: run :PlugInstall after changing something!
 "set nocompatible
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
@@ -121,9 +122,9 @@ augroup PhpStuff
 	autocmd FileType php inoremap vd var_dump($);<Left><Left>
 	autocmd FileType php inoremap PHP <?php<cr><cr>?><Up>
 	" note: after <Esc> reenter insert mode with A not with <A>!
-	autocmd FileType php inoremap ifn private function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
-	autocmd FileType php inoremap ofn protected function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
-	autocmd FileType php inoremap pfn public function () {<cr>}<Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap ifn private function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
+	autocmd FileType php inoremap ofn protected function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
+	autocmd FileType php inoremap pfn public function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
 	autocmd FileType php inoremap Est echo '';<Left><Left>
 	autocmd FileType php inoremap dd $
 	autocmd FileType php inoremap this $this
@@ -131,7 +132,7 @@ augroup PhpStuff
 	autocmd FileType php inoremap ebr echo '<br>';
 	autocmd FileType php inoremap ehl echo '<br><hl><br>';
 	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
-	autocmd FileType php inoremap Test <Tab>/**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Left><Left><Left><Left>
+	autocmd FileType php inoremap Test <Tab>/**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Esc><Left><Left><Left><Left>
 	autocmd FileType php inoremap PAR @param 
 	autocmd FileType php inoremap RET @return 
 augroup end
@@ -139,7 +140,7 @@ augroup end
 augroup HtmlStuff
 	autocmd!
 	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
-	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Left><Left>
+	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Esc><Left>i
 augroup end
 
 
