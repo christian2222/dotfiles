@@ -122,9 +122,10 @@ augroup PhpStuff
 	autocmd FileType php inoremap vd var_dump($);<Left><Left>
 	autocmd FileType php inoremap PHP <?php<cr><cr>?><Up>
 	" note: after <Esc> reenter insert mode with A not with <A>!
-	autocmd FileType php inoremap ifn private function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
-	autocmd FileType php inoremap ofn protected function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
-	autocmd FileType php inoremap pfn public function () {<cr>}<Up>A<Esc><Left><Left><Left><Left>
+	autocmd FileType php inoremap ifn private function () {<cr>}<Up><Esc>A<Esc><Left><Left><Left><Left>a
+	autocmd FileType php inoremap ofn protected function () {<cr>}<Up><Esc>A<Esc><Left><Left><Left><Left>a
+	autocmd FileType php inoremap pfn public function () {<cr>}<Up><Esc>A<Esc><Left><Left><Left><Left>a
+	autocmd FileType php inoremap cstr public function __construct(){<cr>}<Up><Esc>A<Esc><Left>i
 	autocmd FileType php inoremap Est echo '';<Left><Left>
 	autocmd FileType php inoremap dd $
 	autocmd FileType php inoremap this $this
@@ -132,13 +133,18 @@ augroup PhpStuff
 	autocmd FileType php inoremap ebr echo '<br>';
 	autocmd FileType php inoremap ehl echo '<br><hl><br>';
 	autocmd FileType php inoremap Get $_GET[''];<Left><Left><Left>
-	autocmd FileType php inoremap Test <Tab>/**<cr>@test<cr>/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Esc><Left><Left><Left><Left>
+	autocmd FileType php inoremap Test /**<cr>@test<cr>*/<cr>public function () {<cr><cr>}<Up><Up><Esc>A<Esc><Left><Left><Left>i
 	autocmd FileType php inoremap PAR @param 
 	autocmd FileType php inoremap RET @return 
 augroup end
 
 augroup HtmlStuff
 	autocmd!
+	" read a skeleton for a new file -- see :help skeleton
+	" stack autocmds to execute them one after another, however it's cleaner to call a function
+	autocmd BufNewFile *.html	0r ~/dotfiles/skeletons/skeleton.html
+	autocmd BufNewFile *.html	call IMAP_Jumpfunc('', 0) " call IMAP_JumpForward() instead of <C-j> which is binded to this fundtion
+	" for more information see :map and look for IMAP-JumpForward
 	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
 	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Esc><Left>i
 augroup end
