@@ -117,8 +117,16 @@ augroup SkriptStuff
 	autocmd FileType sh inoremap SHE #!/bin/bash
 augroup end
 
+function InsertAtFirstMark()
+	execute "normal i\<Plug>IMAP_JumpForward"
+	" startinsert work like i in normal mode, with ! it works like A
+	startinsert
+endfunction
+
 augroup PhpStuff
 	autocmd!
+	autocmd BufNewFile *.php	0r ~/dotfiles/skeletons/skeleton.php
+	autocmd BufNewFile *.php	call InsertAtFirstMark()
 	autocmd FileType php inoremap vd var_dump($);<Left><Left>
 	autocmd FileType php inoremap PHP <?php<cr><cr>?><Up>
 	" note: after <Esc> reenter insert mode with A not with <A>!
@@ -143,7 +151,9 @@ augroup HtmlStuff
 	" read a skeleton for a new file -- see :help skeleton
 	" stack autocmds to execute them one after another, however it's cleaner to call a function
 	autocmd BufNewFile *.html	0r ~/dotfiles/skeletons/skeleton.html
-	autocmd BufNewFile *.html	call IMAP_Jumpfunc('', 0) " call IMAP_JumpForward() instead of <C-j> which is binded to this fundtion
+	autocmd BufNewFile *.html	call InsertAtFirstMark()
+	" faster than call IMAP_Jumpfunc('', 0) and API compatible
+	" call IMAP_JumpForward() instead of <C-j> which is binded to this fundtion
 	" for more information see :map and look for IMAP-JumpForward
 	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
 	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Esc><Left>i
@@ -152,6 +162,8 @@ augroup end
 
 augroup JavaStuff
 	autocmd!
+	autocmd BufNewFile *.java	0r ~/dotfiles/skeletons/skeleton.java
+	autocmd BufNewFile *.java	call InsertAtFirstMark()
 	autocmd FileType java setlocal omnifunc=javacomplete#Complete
 	autocmd FileType java nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 	autocmd FileType java imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
