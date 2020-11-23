@@ -119,7 +119,9 @@ augroup end
 
 function InsertAtFirstMark()
 	execute "normal i\<Plug>IMAP_JumpForward"
-	" startinsert work like i in normal mode, with ! it works like A
+	"move one character right
+	execute "normal l"
+	" startinsert works like i in normal mode, with ! it works like A
 	startinsert
 endfunction
 
@@ -204,14 +206,14 @@ augroup end
 
 " fasten editing .vimrc
 cnoremap rc e ~/.vimrc
-" reload on command line
+" reload on command mode
 cnoremap reload source ~/.vimrc
 inoremap jk <esc>
 " other ways to exit than <esc>: <c-c> and <c-]>
 " inoremap <M-l> <Esc>:wq<cr>
 " idea: remap jj  to esc
 inoremap jj <Esc>
-" remap jk to command line
+" remap jk on command mode
 inoremap jk <Esc>:
 " remap hh to backspace
 inoremap hh <bs>
