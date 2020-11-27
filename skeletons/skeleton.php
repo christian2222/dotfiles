@@ -7,7 +7,7 @@
  * @category KrassCategory
  * @package  HardPackage
  * @author   Ich 
- * @license  Readme.md www.readme.de
+ * @license  Readme.md
  * @link     ich
  */
 
@@ -19,7 +19,7 @@ namespace cm;
  * @category KrassCategory
  * @package  HardPackage
  * @author   Ich
- * @license  Readme.md www.readme.de
+ * @license  Readme.md
  * @link     ich
  */
 class <++>
