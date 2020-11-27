@@ -4,6 +4,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'mattn/emmet-vim'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 " ImPORTANT: run :PlugInstall after changing something!
 "set nocompatible
@@ -25,6 +26,11 @@ filetype indent on
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+
+" add php coding standards
+" Syntastic
+let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
 
 " set number
 set number
@@ -125,8 +131,23 @@ function InsertAtFirstMark()
 	startinsert
 endfunction
 
+function UsePhpTabs()
+	setlocal tabstop=4
+	setlocal softtabstop=0
+	setlocal shiftwidth=4
+	setlocal expandtab
+	" set smarttab
+	"call UseSpaces()
+endfunction
+
+function TestMe()
+	echo "Hier ist ein Test"
+endfunction
+
 augroup PhpStuff
 	autocmd!
+	"autocmd BufWrite, FileWritePre, BufRead, BufNewFile *.php	call TestMe()
+	autocmd BufRead *.php 		call UsePhpTabs()
 	autocmd BufNewFile *.php	0r ~/dotfiles/skeletons/skeleton.php
 	autocmd BufNewFile *.php	call InsertAtFirstMark()
 	autocmd FileType php inoremap vd var_dump($);<Left><Left>
