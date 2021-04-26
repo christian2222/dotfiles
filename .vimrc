@@ -180,6 +180,13 @@ augroup HtmlStuff
 	" for more information see :map and look for IMAP-JumpForward
 	autocmd FileType html inoremap Html <html><cr><head><cr></head><cr><body><cr></body><cr></html>
 	autocmd FileType html inoremap dic <div class=""><cr><cr></div><cr><Up><Up><Up><Esc>A<Esc><Left>i
+	autocmd FileType html inoremap gg {{  }}<Left><Left><Left>
+	" b move to begin of word
+	" yw yank word to paste it later
+	" A move to end of line (in insert mode)
+	" p paste content after
+	" => surround current typed word as html-tag
+	autocmd FileType html inoremap TT <Esc>bywi<<Esc>A></<Esc>pA>
 augroup end
 
 
