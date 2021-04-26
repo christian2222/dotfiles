@@ -185,8 +185,11 @@ augroup HtmlStuff
 	" yw yank word to paste it later
 	" A move to end of line (in insert mode)
 	" p paste content after
-	" => surround current typed word as html-tag
-	autocmd FileType html inoremap TT <Esc>bywi<<Esc>A></<Esc>pA>
+	" ?> search for last >
+	" :noh disable last highlight search
+	" => surround current typed word as html-tag and put yourself inside
+	" of it in isert mode
+	autocmd FileType html inoremap TT <Esc>bywi<<Esc>A></<Esc>pA><Esc>?><cr>:noh<cr>a
 augroup end
 
 
