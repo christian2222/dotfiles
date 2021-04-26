@@ -190,6 +190,8 @@ augroup HtmlStuff
 	" => surround current typed word as html-tag and put yourself inside
 	" of it in isert mode
 	autocmd FileType html inoremap TT <Esc>bywi<<Esc>A></<Esc>pA><Esc>?><cr>:noh<cr>a
+	" create a tag with class attribute
+	autocmd FileType html inoremap TC <Esc>bywi<<Esc>A<space>class=""><++></<Esc>pA><Esc>?"<Cr>:noh<Cr>i
 augroup end
 
 
