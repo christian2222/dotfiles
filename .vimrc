@@ -173,7 +173,9 @@ augroup HtmlStuff
 	autocmd!
 	" read a skeleton for a new file -- see :help skeleton
 	" stack autocmds to execute them one after another, however it's cleaner to call a function
-	autocmd BufNewFile *.html	0r ~/dotfiles/skeletons/skeleton.html
+	" autocmd BufNewFile *.html	0r ~/dotfiles/skeletons/skeleton.html
+	" replaced by function call
+	autocmd BufNewFile *.html call CmSkeleton('html')
 	autocmd BufNewFile *.html	call InsertAtFirstMark()
 	" faster than call IMAP_Jumpfunc('', 0) and API compatible
 	" call IMAP_JumpForward() instead of <C-j> which is binded to this fundtion
@@ -194,6 +196,15 @@ augroup HtmlStuff
 	autocmd FileType html inoremap TC <Esc>bywi<<Esc>A<space>class=""><++></<Esc>pA><Esc>?"<Cr>:noh<Cr>i
 augroup end
 
+function CmSkeleton(extension)
+	let choice = input("Load Skeleton? ","y")
+	if(choice == "y")
+		exec '0r ~/dotfiles/skeletons/skeleton.'.a:extension
+		echom "loaded"
+	else
+		echo "notloaded"
+	endif
+endfunction
 
 augroup JavaStuff
 	autocmd!
@@ -241,6 +252,7 @@ augroup end
 cnoremap rc e ~/.vimrc
 " reload on command mode
 cnoremap reload source ~/.vimrc
+cnoremap nt NERDTreeToggle
 inoremap jk <esc>
 " other ways to exit than <esc>: <c-c> and <c-]>
 " inoremap <M-l> <Esc>:wq<cr>
@@ -252,6 +264,19 @@ inoremap jk <Esc>:
 inoremap hh <bs>
 " remap jj to esc when in command line (in :) mode
 cnoremap jj <esc>
+" add a function to the command line mode (ie bind fnc to call the Huhu-function
+cnoremap fnc call Huhu()<cr>
+" now use this to ask a question
+function CmAskQuestion()
+	let choosen = input("Load Skeleton?", "y")
+	if(choosen == "y")
+		echom "loaded"
+	else
+		echo "notloaded"
+	endif
+endfunction
+
+cnoremap test call CmAskQuestion()<cr>
 " ABREVATIONS
 " " Note: abbrevations expand only when a non character follows
 "       mappings expand everytime!
