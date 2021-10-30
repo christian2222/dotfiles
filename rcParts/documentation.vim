@@ -2016,4 +2016,5 @@
 "
 
 
-
+" own documentation
+" :r !ls - place the result of ls on command line in current cursor position

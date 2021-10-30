@@ -3,7 +3,7 @@ function InsertAtFirstMark()
 	"move one character right
 	execute "normal l"
 	" startinsert works like i in normal mode, with ! it works like A
-	startinsert
+	startinsert!
 endfunction
 
 function UsePhpTabs()
