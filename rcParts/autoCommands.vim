@@ -78,6 +78,10 @@ augroup PhpStuff
 	autocmd FileType *.php inoremap RET @return 
 augroup end
 
+augroup PhpLaravelStuff
+	autocmd!
+augroup end
+
 augroup HtmlStuff
 	autocmd!
 	" read a skeleton for a new file -- see :help skeleton
