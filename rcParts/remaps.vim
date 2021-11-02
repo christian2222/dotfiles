@@ -8,14 +8,15 @@
 " :w! write and overrride existing file
 " `P jump back to mark setted at the beginning
 " a return to insert mode after mark
-inoremap <C-s> <esc>mPggVG=:%s/\s\+$//e<cr>:w!<cr>`Pa
+inoremap <C-s> <esc>mPggVG=:%s/\s\+$/\ /e<cr>:w!<cr>`Pa
 inoremap <C-q> <Esc>:q<cr>
 inoremap <C-l> <Esc>:wq<cr>
 " inoremap <esc> <nop> " force yourself to use jk
 
 
 " fasten editing .vimrc
-cnoremap rc e ~/.vimrc
+" note now .vimrc is parted and we use NerdTree
+cnoremap rc e ~/dotfiles/rcParts/
 " reload on command mode
 cnoremap reload source ~/.vimrc
 cnoremap nt NERDTreeToggle
@@ -93,7 +94,7 @@ nnoremap <C-l> :wq<cr>
 " force quit; <M-...> is Alt and ...
 " disabled for now
 " nnoremap <M-l> :wq<cr>
-nnoremap jk :
+" nnoremap jk :
 " make a heading:
 " Y yank the whole linie
 " p paste it adter
