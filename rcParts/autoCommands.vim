@@ -1,7 +1,7 @@
 " some latex stuff
 augroup LatexStuff
 	" remove previously defined autocommands, so they are not loaded
-	" multiply times (cannot be placed in the smae line sinde autocmd! is
+	" multiply times (cannot be placed in the same line sinde autocmd! is
 	" a vimscript command!
 	autocmd!
 	autocmd BufNewFile *.tex call CmSkeleton('tex')
