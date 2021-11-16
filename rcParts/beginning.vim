@@ -5,6 +5,7 @@ Plug 'preservim/nerdtree'
 Plug 'artur-shaik/vim-javacomplete2'
 Plug 'mattn/emmet-vim'
 Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 call plug#end()
 " ImPORTANT: run :PlugInstall after changing something!
 "set nocompatible
@@ -31,6 +32,14 @@ let g:tex_flavor='latex'
 " Syntastic
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
+
+"javascript development
+let g:ale_linters = {
+\   'javascript': ['standard'],
+\}
+let g:ale_fixers = {'javascript': ['standard']}
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 
 " set number
 set number
