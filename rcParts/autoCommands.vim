@@ -12,11 +12,13 @@ augroup LatexStuff
 	autocmd FileType tex inoremap ddef <Bslash>begin{defi}<CR><CR><Bslash>end{defi}<Up>
 	autocmd FileType tex inoremap dlem <Bslash>begin{lem}<CR><CR><Bslash>end{lem}<Up>
 	autocmd FileType tex inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
+	autocmd FileType tex inoremap dbem <Bslash>begin{bem}<CR><CR><Bslash>end{bem}<Up>
 	autocmd FileType tex inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
 	autocmd FileType tex inoremap ddoc <Bslash>documentclass{article}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
 	autocmd FileType tex inoremap öö <bslash>
 	autocmd FileType tex inoremap mP <Bslash>mathbb{P}()<left>
 	autocmd FileType tex inoremap mA <Bslash>mathbb{A}()<left>
+	autocmd FileType tex inoremap mE <Bslash>mathbb{E}()<left>
 	autocmd FileType tex inoremap wraum Wahrscheinlichkeitsraum
 	autocmd FileType tex inoremap mraum Ma<bslash>ss raum
 	autocmd FileType tex inoremap djoin <bslash>uplus
