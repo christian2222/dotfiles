@@ -6,6 +6,7 @@ Plug 'artur-shaik/vim-javacomplete2'
 Plug 'mattn/emmet-vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'dense-analysis/ale'
+Plug 'vim-latex/vim-latex'
 call plug#end()
 " ImPORTANT: run :PlugInstall after changing something!
 filetype on
