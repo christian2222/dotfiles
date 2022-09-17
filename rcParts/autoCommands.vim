@@ -6,6 +6,7 @@ augroup LatexStuff
 	autocmd!
 	" note the difference betwenn FileType which is a vim interna and 
 	" *.tex which is a wildcard for file types!
+	autocmd FileType tex inoremap == <Bslash>equiv
 	autocmd FileType tex inoremap dthm <Bslash>begin{thm}<CR><CR><Bslash>end{thm}<Up>
 	autocmd BufNewFile *.tex call CmSkeleton('tex')
 	autocmd BufNewFile *.tex call InsertAtFirstMark()
@@ -54,6 +55,11 @@ augroup LatexStuff
 	" make commands also availible from input mode
 	autocmd FileType tex inoremap <C-c> <Esc><Bslash>ll<CR>i<Right>
 	autocmd FileType tex inoremap <C-v> <Esc><Bslash>lv<CR>i<Right>
+	" arrows
+	autocmd FileType tex inoremap => \Rightarrow
+	autocmd FileType tex inoremap -> \rightarrow
+	autocmd FileType tex inoremap gdw \Leftrightarrow
+
 augroup end
 
 
