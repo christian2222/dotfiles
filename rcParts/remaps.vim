@@ -8,7 +8,9 @@
 " :w! write and overrride existing file
 " `P jump back to mark setted at the beginning
 " a return to insert mode after mark
-inoremap <C-s> <esc>mPggVG=:%s/\s\+$/\ /e<cr>:w!<cr>`Pa
+"inoremap <C-s> <esc>mPggVG=:%s/\s\+$/\ /e<cr>:w!<cr>`Pa
+" don't format before saving
+inoremap <C-s> <esc>:w!<cr>a
 inoremap <C-q> <Esc>:q<cr>
 inoremap <C-l> <Esc>:wq<cr>
 " inoremap <esc> <nop> " force yourself to use jk

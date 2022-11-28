@@ -2017,4 +2017,6 @@
 
 
 " own documentation
-" :r !ls - place the result of ls on command line in current cursor position
+" :r !ls - place the result of ls on command line in current cursor positio"
+" Ctrl+] jump into link in documentation
+" Ctrl+o jump back
