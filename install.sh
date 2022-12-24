@@ -9,8 +9,8 @@ mkdir -p ~/.vim/autoload/
 cd ~/.vim/autoload/
 wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cd ~/dotfiles/
-call makeLinks.sh
-call cloneOthers.sh
+source makeLinks.sh
+source cloneOthers.sh
 cd ~
 vim -c ':PlugInstall | quit | quit' # 1st quit from PlugInstall, second for vim itself
 echo 'Vim is now configured.'
