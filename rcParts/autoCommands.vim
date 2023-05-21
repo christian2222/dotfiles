@@ -15,7 +15,7 @@ augroup LatexStuff
 	autocmd FileType tex inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 	autocmd FileType tex inoremap dbem <Bslash>begin{bem}<CR><CR><Bslash>end{bem}<Up>
 	autocmd FileType tex inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
-	autocmd FileType tex inoremap ddoc <Bslash>documentclass{article}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
+	autocmd FileType tex inoremap ddoc <Bslash>documentclass{article}<CR>\usepackage{amsmath,amssymb,amsfonts}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
 	autocmd FileType tex inoremap öö <bslash>
 	autocmd FileType tex inoremap mP <Bslash>mathbb{P}()<left>
 	autocmd FileType tex inoremap mA <Bslash>mathbb{A}()<left>

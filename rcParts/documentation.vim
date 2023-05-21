@@ -2020,3 +2020,9 @@
 " :r !ls - place the result of ls on command line in current cursor positio"
 " Ctrl+] jump into link in documentation
 " Ctrl+o jump back
+" gf - goto file in normal mode
+" gx - goto website in normal mode
+" echo $((3*4)) - goto visual line mode and type :!bash to evaluate
+" in general mark multiple lines and type :!sort | uniq  to sort unique items
+" :tabnew <filename< - creates a new tab (with the specified filename)
+" :tabn tabp - cycle through tabs n next and p previous
