@@ -2017,7 +2017,8 @@
 
 
 " own documentation
-" :r !ls - place the result of ls on command line in current cursor positio"
+"******************
+" :r !ls - place the result of ls on command line in current cursor position
 " Ctrl+] jump into link in documentation
 " Ctrl+o jump back
 " gf - goto file in normal mode
@@ -2026,3 +2027,4 @@
 " in general mark multiple lines and type :!sort | uniq  to sort unique items
 " :tabnew <filename< - creates a new tab (with the specified filename)
 " :tabn tabp - cycle through tabs n next and p previous
+" :help keycodes
