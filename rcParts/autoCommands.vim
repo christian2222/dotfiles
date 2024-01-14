@@ -15,6 +15,7 @@ augroup LatexStuff
 	autocmd FileType tex inoremap dkor <Bslash>begin{kor}<CR><CR><Bslash>end{kor}<Up>
 	autocmd FileType tex inoremap dbem <Bslash>begin{bem}<CR><CR><Bslash>end{bem}<Up>
 	autocmd FileType tex inoremap dpro <Bslash>begin{proof}<CR><CR><Bslash>end{proof}<Up>
+	autocmd FileType tex inoremap dbsp <Bslash>begin{bsp}<CR><CR><Bslash>end{bsp}<Up>
 	autocmd FileType tex inoremap ddoc <Bslash>documentclass{article}<CR>\usepackage{amsmath,amssymb,amsfonts}<CR><Bslash>begin{document}<CR><CR><Bslash>end{document}<Up>
 	autocmd FileType tex inoremap öö <bslash>
 	autocmd FileType tex inoremap mP <Bslash>mathbb{P}()<left>
@@ -26,13 +27,13 @@ augroup LatexStuff
 	autocmd FileType tex inoremap sohne <bslash>setminus
 	" see :help keycodes 
 	" for more information about keystroke-coding
-	autocmd FileType tex inoremap binfty \bigcup_{i=1}^\infty
-	autocmd FileType tex inoremap banfty \bigcap_{i=1}^\infty
-	autocmd FileType tex inoremap jinfty \bigcup_{j=1}^\infty
-	autocmd FileType tex inoremap janfty \bigcap_{j=1}^\infty
-	autocmd FileType tex inoremap NN \mathbb{N}
-	autocmd FileType tex inoremap EW \E{}<left>
-	autocmd FileType tex inoremap PR \Pr{}<left>
+	autocmd FileType tex inoremap binfty <Bslash>bigcup_{i=1}^\infty
+	autocmd FileType tex inoremap banfty <Bslash>bigcap_{i=1}^\infty
+	autocmd FileType tex inoremap jinfty <Bslash>bigcup_{j=1}^\infty
+	autocmd FileType tex inoremap janfty <Bslash>bigcap_{j=1}^\infty
+	autocmd FileType tex inoremap NN <Bslash>mathbb{N}
+	autocmd FileType tex inoremap EW <Bslash>E{}<left>
+	autocmd FileType tex inoremap PR <Bslash>Pr{}<left>
 	autocmd FileType tex inoremap ZV Zufallsvariable
 	autocmd FileType tex inoremap WK Wahrscheinnlichkeit
 	autocmd FileType tex inoremap EAF \sum_{k=1}^n (-1)^{k+1} \sum_{I \subseteq \{1,\ldots,n\},#I=k} \mathbb{P}(\bigcap_{i \in I} A_i)
@@ -56,10 +57,21 @@ augroup LatexStuff
 	autocmd FileType tex inoremap <C-c> <Esc><Bslash>ll<CR>i<Right>
 	autocmd FileType tex inoremap <C-v> <Esc><Bslash>lv<CR>i<Right>
 	" arrows
-	autocmd FileType tex inoremap => \Rightarrow
-	autocmd FileType tex inoremap -> \rightarrow
-	autocmd FileType tex inoremap gdw \Leftrightarrow
-
+	autocmd FileType tex inoremap => <Bslash>Rightarrow
+	autocmd FileType tex inoremap -> <Bslash>rightarrow
+	autocmd FileType tex inoremap gdw <Bslash>Leftrightarrow
+	" german
+	autocmd FileType tex inoremap -folgt <Bslash>Rightarrow
+	autocmd FileType tex inoremap -ohne <Bslash>setminus
+	autocmd FileType tex inoremap -nach <Bslash>rightarrow
+	autocmd FileType tex inoremap -furalle <Bslash>qquad<Space><Bslash>forall
+	autocmd FileType tex inoremap ID Integraldom\"ane
+	autocmd FileType tex inoremap mI multiplikative Inverse
+	autocmd FileType tex inoremap MM $$<Left>
+	autocmd FileType tex inoremap Mmb $<Bslash>mathbb{}$<Left><Left>
+	autocmd FileType tex inoremap mmb <Bslash>mathbb{}<Left>
+	autocmd FileType tex inoremap EM {<Bslash>em }<Left>
+	" autocmd FileType tex inoremap 
 augroup end
 
 
