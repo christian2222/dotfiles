@@ -72,4 +72,7 @@ set list"
 " endif
 " INSERT-mode
 " ***********
-
+"
+"
+" set up system clipboard
+set clipboard=unnamedplus
